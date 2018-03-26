@@ -2,9 +2,10 @@
 <?php include("includes/header.php"); ?>
 
 <?php
-$message = "";
+$message = '';
 $query1 = '';
 $query2 = '';
+$result = '';
 
 if (isset($_POST["register"])) {
 
@@ -30,14 +31,15 @@ if (isset($_POST["register"])) {
 
         } else {
 
-            $sql = "INSERT INTO users (fullname, email, username, password) VALUES ('$fullname','$email', '$username', '$password')";
+            $sql = "INSERT INTO users (fullname, email, username, password) VALUES ('".$fullname."','".$email."', '".$username."', '".$password."')";
             $result = mysqli_query($link, $sql);
 
             if ($result) {
-                $message = "Аккаунт успешно создан!";
+                $message = "Аккаунт успешно создан! Для входа используйте свой логин и пароль.";
 
             } else {
-                $message = "Ошибка доступа к базе данных";
+
+                $message = 'Ошибка при работе с базой данных';
             }
         }
     } else {
