@@ -21,6 +21,7 @@ if (isset($_SESSION["session_username"])) {
 $message = '';
 $dbusername = '';
 $dbpassword = '';
+$tag = '';
 
 
 if (isset($_POST["login"])) {
@@ -38,13 +39,12 @@ if (isset($_POST["login"])) {
 
                 $dbusername = $row['username'];
                 $dbpassword = $row['password'];
+                $tag = $row['tag'];
 
             }
             if ($username == $dbusername && password_verify($password, $dbpassword)) {
 
                 $_SESSION['session_username'] = $username;
-                $q_base = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
-                $tag = mysqli_fetch_assoc($q_base)['tag'];
 
                 if ($tag == 'c') {
                     header("Location: intropage_c.php");
