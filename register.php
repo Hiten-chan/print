@@ -66,7 +66,7 @@ if (isset($_POST["register"])) {
                 </p>
                 <p class="submit"><input class="button" id="register" name="register" type="submit"
                                          value="Зарегистрироваться"></p>
-                <p class="regtext">Уже зарегистрированы? <a href="login_o.php">Вход!</a></p>
+                <p class="regtext">Уже зарегистрированы? <a href="login.php">Вход!</a></p>
             </form>
         </div>
     </div>

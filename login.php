@@ -1,11 +1,21 @@
-<?php session_start();?>
+<?php session_start(); ?>
 <?php require_once("includes/connection.php"); ?>
 <?php include("includes/header.php"); ?>
 <?php
 
 if (isset($_SESSION["session_username"])) {
-    header("Location: intropage.php");
-} else {
+
+    $username = '';
+    $_SESSION['session_username'] = $username;
+    $q_base = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
+    $tag = mysqli_fetch_assoc($q_base)['tag'];
+
+    if ($tag == 'c') {
+        header("Location: intropage_c.php");
+    } elseif ($tag == 'o') {
+        header("Location: intropage_o.php");
+    }
+
 }
 
 $message = '';
@@ -33,8 +43,17 @@ if (isset($_POST["login"])) {
             if ($username == $dbusername && password_verify($password, $dbpassword)) {
 
                 $_SESSION['session_username'] = $username;
-                header('Location: intropage.php');
-                exit();
+                $q_base = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
+                $tag = mysqli_fetch_assoc($q_base)['tag'];
+
+                if ($tag == 'c') {
+                    header("Location: intropage_c.php");
+                    exit();
+                } else if ($tag == 'o') {
+                    header("Location: intropage_o.php");
+                    exit();
+                }
+
 
             }
         } else {
