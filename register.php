@@ -60,7 +60,7 @@ if (isset($_POST["register"])) {
                         <input class="input" id="fullname" name="fullname" size="32" type="text" value=""></label></p>
                 <p><label for="user_pass">E-mail<br>
                         <input class="input" id="email" name="email" size="32" type="email" value=""></label></p>
-                <p><label for="user_pass">Имя пользователя<br>
+                <p><label for="user_pass">Логин<br>
                         <input class="input" id="username" name="username" size="20" type="text" value=""></label></p>
                 <p><label for="user_pass">Пароль<br>
                         <input class="input" id="password" name="password" size="32" type="password" value=""></label>

@@ -73,7 +73,7 @@ if (isset($_POST["login"])) {
             <h1>Вход</h1>
             <center><span style="color:red"><?php echo $message; ?></span></center>
             <form action="" id="loginform" method="post" name="loginform">
-                <p><label for="user_login">Имя пользователя<br>
+                <p><label for="user_login">Логин<br>
                         <input class="input" id="username" name="username" size="20"
                                type="text" value=""></label></p>
                 <p><label for="user_pass">Пароль<br>
