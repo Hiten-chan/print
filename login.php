@@ -54,10 +54,11 @@ if (isset($_POST["login"])) {
                     exit();
                 }
 
+            } else {$message = "Неверный пароль!";}
 
-            }
+
         } else {
-            $message = "Неверное имя пользователя или пароль!";
+            $message = "Неверное имя пользователя!";
 
         }
     } else {
@@ -70,7 +71,7 @@ if (isset($_POST["login"])) {
     <div class="container mlogin">
         <div id="login">
             <h1>Вход</h1>
-            <span style="color:red"><?php echo $message; ?></span>
+            <center><span style="color:red"><?php echo $message; ?></span></center>
             <form action="" id="loginform" method="post" name="loginform">
                 <p><label for="user_login">Имя пользователя<br>
                         <input class="input" id="username" name="username" size="20"
@@ -80,6 +81,7 @@ if (isset($_POST["login"])) {
                                type="password" value=""></label></p>
                 <p class="submit"><input class="button" name="login" type="submit" value="Вход"></p>
                 <p class="regtext">Еще не зарегистрированы? <br><a href="register.php">Регистрация!</a></p>
+                <p class="regtext">Вы что, забыли пароль? <br><a href="restore.php">Восстановить пароль!</a></p>
             </form>
         </div>
     </div>

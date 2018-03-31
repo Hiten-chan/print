@@ -45,8 +45,7 @@ else: ?>
     </div>
 
     <div id="JS" class="content">
-        <h3>Смена пароля</h3>
-        <p>Форма смены пароля</p>
+        <?php include("changepass.php");?>
     </div>
 
 </div>

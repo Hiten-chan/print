@@ -24,6 +24,7 @@ else: ?>
             <button class="links" onclick="openLang(event,'HTML')">Заказы</button>
             <button class="links" onclick="openLang(event,'CSS')">Нотификации</button>
             <button class="links" onclick="openLang(event,'JS')">Настройки аккаунта</button>
+            <button class="links" onclick="openLang(event,'PASS')">Сменить пароль</button>
             <a href="logout.php"><button>Выйти из системы</button></a>
         </div>
     </div>
@@ -40,6 +41,10 @@ else: ?>
 
     <div id="JS" class="content">
         <?php include("settings.php"); ?>
+    </div>
+
+    <div id="PASS" class="content">
+        <?php include("changepass.php");?>
     </div>
 
 </div>

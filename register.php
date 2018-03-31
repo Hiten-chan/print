@@ -40,6 +40,7 @@ if (isset($_POST["register"])) {
             } else {
 
                 $message = "Ошибка при работе с базой данных";
+                printf("Errormessage: %s\n", mysqli_error($link));
             }
         }
     } else {

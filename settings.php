@@ -1,5 +1,5 @@
-<?php require_once("/Users/macintosh/web_projects/print/includes/connection.php"); ?>
-<?php include("/Users/macintosh/web_projects/print/includes/header.php"); ?>
+<?php require_once("includes/connection.php"); ?>
+<?php include("includes/header.php"); ?>
 
 <?php
 
@@ -65,12 +65,12 @@ if (isset($_POST["save"])) {
         $sql3 = "UPDATE users SET phone = '" . $phone . "' WHERE username = '" . $username . "'";
         $result3 = mysqli_query($link, $sql3);
 
-        if ($result3) {
-            $message = "Новые данные сохранены";
+    if ($result3) {
+        $message = "Новые данные сохранены";
 
-        } else {
+    } else {
 
-            $message = "Ошибка при работе с базой данных";
+        $message = "Ошибка при работе с базой данных";
     }}
 }
 ?>

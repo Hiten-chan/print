@@ -7,11 +7,11 @@ if(!isset($_SESSION["session_username"])):
 else:
     ?>
 
-<?php include("header.php"); ?>
+<?php include("includes/header.php"); ?>
 <div id="welcome">
     <h2>Добро пожаловать, <span><?php echo $_SESSION['session_username'];?></span>!</h2>
 </div>
-<?php include("footer.php"); ?>
+<?php include("includes/footer.php"); ?>
 <?php endif; ?>
 
 <?php
