@@ -11,9 +11,9 @@ if (isset($_SESSION["session_username"])) {
     $tag = mysqli_fetch_assoc($q_base)['tag'];
 
     if ($tag == 'c') {
-        header("Location: intropage_c.php");
+        header("Location: client.php");
     } elseif ($tag == 'o') {
-        header("Location: intropage_o.php");
+        header("Location: operator.php");
     }
 
 }
@@ -47,10 +47,10 @@ if (isset($_POST["login"])) {
                 $_SESSION['session_username'] = $username;
 
                 if ($tag == 'c') {
-                    header("Location: intropage_c.php");
+                    header("Location: client.php");
                     exit();
                 } else if ($tag == 'o') {
-                    header("Location: intropage_o.php");
+                    header("Location: operator.php");
                     exit();
                 }
 
@@ -65,7 +65,6 @@ if (isset($_POST["login"])) {
     }
 }
 ?>
-
 
     <body>
     <div class="container mlogin">
