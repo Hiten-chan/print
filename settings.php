@@ -55,7 +55,6 @@ if (isset($_POST["save"])) {
 
         if ($result2) {
             $message2 = "Новое имя сохранено";
-            header("location:intropage_c.php");
 
         } else {
 
@@ -75,6 +74,15 @@ if (isset($_POST["save"])) {
 
         $message3 = "Ошибка при работе с базой данных";
     }}
+
+    $q = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
+    $n = mysqli_num_rows($q);
+    $row = mysqli_fetch_assoc($q);
+
+    $dbfullname = $row['fullname'];
+    $dbphone = $row['phone'];
+    $dbemail = $row['email'];
+    $dbdate = $row['date'];
 }
 ?>
 
@@ -84,7 +92,7 @@ if (isset($_POST["save"])) {
             <span style="color:red"><?php echo $message; ?></span>
             <span style="color:red"><?php echo $message2; ?></span>
             <span style="color:red"><?php echo $message3; ?></span>
-            <form action="intropage_c.php" id="settingsform" method="post" name="settingsform">
+            <form id="settingsform" method="post" name="settingsform">
                 <p><label for="user_pass">Логин для входа:</p>
                 <p><big><big><span><?php echo $_SESSION['session_username'];?></span></big></big></p>
                 <p><label for="user_pass">Дата регистрации:</p>
