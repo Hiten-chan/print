@@ -4,16 +4,15 @@
 <?php
 
 $username = $_SESSION['session_username'];
+$query = '';
 $message = '';
 $message2 = '';
 $message3 = '';
-$query = '';
 
 $q = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
 $n = mysqli_num_rows($q);
 $row = mysqli_fetch_assoc($q);
 
-$dbusername = $row['username'];
 $dbfullname = $row['fullname'];
 $dbphone = $row['phone'];
 $dbemail = $row['email'];
@@ -24,11 +23,14 @@ $dbdate = $row['date'];
 	--------------------------------------------------------*/
 if (isset($_POST["save"])) {
 
+
     $fullname = htmlspecialchars($_POST['fullname']);
     $email = htmlspecialchars($_POST['email']);
     $phone = htmlspecialchars($_POST['phone']);
 
     if (!empty($email)) {
+
+        if ($email != $dbemail) {
 
         $query = mysqli_query($link, "SELECT * FROM users WHERE email = '" . $email . "'");
         $numrows2 = mysqli_num_rows($query);
@@ -41,48 +43,48 @@ if (isset($_POST["save"])) {
             $result1 = mysqli_query($link, $sql1);
 
             if ($result1) {
-            $message = 'Новые данные сохранены';}
-        }
+            $message = 'Новый email сохранен';}
+        }}
     } else {
         $message = "Поле E-mail не может быть пустым!";
     }
 
-    if (!empty($fullname)){
+    if (!empty($fullname) && $fullname != $dbfullname){
         $sql2 = "UPDATE users SET fullname = '" . $fullname . "' WHERE username = '" . $username . "'";
         $result2 = mysqli_query($link, $sql2);
 
         if ($result2) {
-            $message = "Новые данные сохранены";
+            $message2 = "Новое имя сохранено";
+            header("location:intropage_c.php");
 
         } else {
 
-            $message = "Ошибка при работе с базой данных";
+            $message2 = "Ошибка при работе с базой данных";
         }}
 
 
 
-    if (!empty($phone)){
+    if (!empty($phone) && $phone != $dbphone){
         $sql3 = "UPDATE users SET phone = '" . $phone . "' WHERE username = '" . $username . "'";
         $result3 = mysqli_query($link, $sql3);
 
     if ($result3) {
-        $message = "Новые данные сохранены";
+        $message3 = "Новый телефон сохранен";
 
     } else {
 
-        $message = "Ошибка при работе с базой данных";
+        $message3 = "Ошибка при работе с базой данных";
     }}
 }
 ?>
 
-<!--    action="1.php"-->
     <div class="container msettings">
         <center><div id="settings">
             <h1>Настройки</h1>
             <span style="color:red"><?php echo $message; ?></span>
             <span style="color:red"><?php echo $message2; ?></span>
             <span style="color:red"><?php echo $message3; ?></span>
-            <form id="settingsform" method="post" name="settingsform">
+            <form action="intropage_c.php" id="settingsform" method="post" name="settingsform">
                 <p><label for="user_pass">Логин для входа:</p>
                 <p><big><big><span><?php echo $_SESSION['session_username'];?></span></big></big></p>
                 <p><label for="user_pass">Дата регистрации:</p>
