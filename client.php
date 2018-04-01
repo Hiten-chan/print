@@ -15,5 +15,5 @@ else:
 <?php endif; ?>
 
 <?php
-header('Refresh: 2; URL=intropage_c.php');
+header('Refresh: 1; URL=intropage_c.php');
 exit; ?>

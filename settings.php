@@ -11,13 +11,13 @@ $query = '';
 
 $q = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
 $n = mysqli_num_rows($q);
-
-while ($row = mysqli_fetch_assoc($q)) {
+$row = mysqli_fetch_assoc($q);
 
 $dbusername = $row['username'];
 $dbfullname = $row['fullname'];
 $dbphone = $row['phone'];
-$dbemail = $row['email'];}
+$dbemail = $row['email'];
+$dbdate = $row['date'];
 
 
 /*= КАКАЯ-ТО ТУПАЯ ЛОГИКА, НУЖНО ПЕРЕДЕЛАТЬ
@@ -85,6 +85,8 @@ if (isset($_POST["save"])) {
             <form id="settingsform" method="post" name="settingsform">
                 <p><label for="user_pass">Логин для входа:</p>
                 <p><big><big><span><?php echo $_SESSION['session_username'];?></span></big></big></p>
+                <p><label for="user_pass">Дата регистрации:</p>
+                <p><big><span><?php echo $dbdate;?></span></big></p>
                 <p><label for="user_login">Полное имя<br>
                         <input class="input" id="fullname" name="fullname" size="32" type="text" value="<?php echo $dbfullname; ?>"></label></p>
                 <p><label for="user_pass">Телефон<br>

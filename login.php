@@ -1,10 +1,10 @@
 <?php session_start(); ?>
 <?php require_once("includes/connection.php"); ?>
 <?php include("includes/header.php"); ?>
+
 <?php
 
 if (isset($_SESSION["session_username"])) {
-
     $username = '';
     $_SESSION['session_username'] = $username;
     $q_base = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
@@ -12,6 +12,7 @@ if (isset($_SESSION["session_username"])) {
 
     if ($tag == 'c') {
         header("Location: client.php");
+
     } elseif ($tag == 'o') {
         header("Location: operator.php");
     }
@@ -25,30 +26,26 @@ $tag = '';
 
 
 if (isset($_POST["login"])) {
-
     $username = htmlspecialchars($_POST['username']);
     $password = $_POST['password'];
 
     if (!empty($username) && !empty($password)) {
-
         $query = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
         $numrows = mysqli_num_rows($query);
 
         if ($numrows != 0) {
-            while ($row = mysqli_fetch_assoc($query)) {
+            $row = mysqli_fetch_assoc($query);
+            $dbusername = $row['username'];
+            $dbpassword = $row['password'];
+            $tag = $row['tag'];
 
-                $dbusername = $row['username'];
-                $dbpassword = $row['password'];
-                $tag = $row['tag'];
-
-            }
             if ($username == $dbusername && password_verify($password, $dbpassword)) {
-
                 $_SESSION['session_username'] = $username;
 
                 if ($tag == 'c') {
                     header("Location: client.php");
                     exit();
+
                 } else if ($tag == 'o') {
                     header("Location: operator.php");
                     exit();

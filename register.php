@@ -16,7 +16,6 @@ if (isset($_POST["register"])) {
 
     if (!empty($fullname) && !empty($email) && !empty($username) && !empty($password)) {
 
-
         $query1 = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
         $numrows1 = mysqli_num_rows($query1);
 
@@ -30,7 +29,6 @@ if (isset($_POST["register"])) {
             $message = "Имя пользователя уже занято!";
 
         } else {
-
             $sql = "INSERT INTO users (fullname, email, username, password) VALUES ('".$fullname."','".$email."', '".$username."', '".$password."')";
             $result = mysqli_query($link, $sql);
 
@@ -38,7 +36,6 @@ if (isset($_POST["register"])) {
                 $message = "Аккаунт успешно создан! Для входа используйте свой логин и пароль.";
 
             } else {
-
                 $message = "Ошибка при работе с базой данных";
                 printf("Errormessage: %s\n", mysqli_error($link));
             }
