@@ -1,5 +1,4 @@
 <?php require_once("includes/connection.php"); ?>
-<?php include("includes/header.php"); ?>
 
 <?php
 $message = '';
@@ -16,7 +15,6 @@ if (isset($_POST["register"])) {
 
     if (!empty($fullname) && !empty($email) && !empty($username) && !empty($password)) {
 
-
         $query1 = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
         $numrows1 = mysqli_num_rows($query1);
 
@@ -24,38 +22,37 @@ if (isset($_POST["register"])) {
         $numrows2 = mysqli_num_rows($query2);
 
         if ($numrows2 != 0) {
-            $message = "Такой email уже зарегистрирован в системе!";
-
+            $message = '<span class = "bad">Такой email уже зарегистрирован в системе!</span></br>';
         } elseif ($numrows1 != 0) {
-            $message = "Имя пользователя уже занято!";
+            $message = '<span class = "bad">Имя пользователя уже занято!</span></br>';
 
         } else {
-
-            $sql = "INSERT INTO users (fullname, email, username, password) VALUES ('".$fullname."','".$email."', '".$username."', '".$password."')";
+            $sql = "INSERT INTO users (fullname, email, username, password) VALUES ('" . $fullname . "','" . $email . "', '" . $username . "', '" . $password . "')";
             $result = mysqli_query($link, $sql);
 
             if ($result) {
-                $message = "Аккаунт успешно создан! Для входа используйте свой логин и пароль.";
+                $message = '<span class = "good">Аккаунт успешно создан!</br> Для авторизации используйте свой логин и пароль на странице входа</span></br>';
+                header('Refresh: 2; URL=login.php');
 
             } else {
-
-                $message = "Ошибка при работе с базой данных";
+                $message = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
                 printf("Errormessage: %s\n", mysqli_error($link));
             }
         }
     } else {
-        $message = "Все поля обязательны для заполнения!";
+        $message = '<span class = "bad">Все поля обязательны для заполнения!</span></br>';
     }
 }
 ?>
 
 
+<?php include("includes/header.php"); ?>
     <body>
     <div class="container mregister">
         <div id="login">
             <h1>Регистрация</h1>
-            <span style="color:red"><?php echo $message; ?></span>
-            <form action="register.php" id="registerform" method="post" name="registerform">
+            <center><?php echo $message; ?></center>
+            <form id="registerform" method="post" name="registerform">
                 <p><label for="user_login">Полное имя<br>
                         <input class="input" id="fullname" name="fullname" size="32" type="text" value=""></label></p>
                 <p><label for="user_pass">E-mail<br>
@@ -72,5 +69,4 @@ if (isset($_POST["register"])) {
         </div>
     </div>
     </body>
-
 <?php include("includes/footer.php"); ?>

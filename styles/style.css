@@ -16,6 +16,16 @@ span {
     color: #f58220;
 }
 
+.good {
+    color: #09bf1a;
+    font-weight: bolder;
+}
+
+.bad {
+    color: red;
+    font-weight: bolder;
+}
+
 .mlogin {
     margin: 5% auto 0;
 }
