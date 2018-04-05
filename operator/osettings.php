@@ -4,7 +4,7 @@ $state1 = 'links';
 $state2 = 'links';
 $state3 = 'links active';
 $state4 = 'links';
-include("menu_operator.php"); ?>
+include("menu_client.php"); ?>
 
 <?php
 $username = $_SESSION['session_username'];
@@ -47,6 +47,9 @@ if (isset($_POST["save"])) {
 
                 if ($result1) {
                     $message1 = '<span class = "good">Новый email сохранен</span></br>';
+                } else {
+                    $message2 = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+                    printf("Errormessage: %s\n", mysqli_error($link));
                 }
             }
         }
@@ -55,20 +58,27 @@ if (isset($_POST["save"])) {
         $message1 = '<span class = "bad">Поле E-mail не может быть пустым!</span></br>';
     }
 
-    if (!empty($fullname) && $fullname != $dbfullname) {
-        $sql2 = "UPDATE users SET fullname = '" . $fullname . "' WHERE username = '" . $username . "'";
-        $result2 = mysqli_query($link, $sql2);
+    if (!empty($fullname)) {
 
-        if ($result2) {
-            $message2 = '<span class = "good">Новое имя сохранено</span></br>';
+        if ($fullname != $dbfullname) {
 
-        } else {
+            $sql2 = "UPDATE users SET fullname = '" . $fullname . "' WHERE username = '" . $username . "'";
+            $result2 = mysqli_query($link, $sql2);
 
-            $message2 = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+            if ($result2) {
+                $message2 = '<span class = "good">Новое имя сохранено</span></br>';
+
+            } else {
+
+                $message2 = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+                printf("Errormessage: %s\n", mysqli_error($link));
+            }
         }
+    } else {
+        $message2 = '<span class = "bad">Поле Имя не может быть пустым!</span></br>';
     }
 
-    if (!empty($phone) && $phone != $dbphone) {
+    if ($phone != $dbphone) {
         $sql3 = "UPDATE users SET phone = '" . $phone . "' WHERE username = '" . $username . "'";
         $result3 = mysqli_query($link, $sql3);
 
@@ -78,6 +88,7 @@ if (isset($_POST["save"])) {
         } else {
 
             $message3 = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+            printf("Errormessage: %s\n", mysqli_error($link));
         }
     }
 
@@ -103,16 +114,22 @@ if (isset($_POST["save"])) {
                 <?php echo $message3; ?>
                 <form id="settingsform" method="post" name="settingsform">
                     <p><label>Логин для входа:</p>
-                    <p><span style="font-weight: 500; font-size: x-large;"><?php echo $_SESSION['session_username']; ?></span></p>
+                    <p>
+                        <span style="font-weight: 500; font-size: x-large;"><?php echo $_SESSION['session_username']; ?></span>
+                    </p>
                     <p><label>Дата регистрации:</p>
                     <p><span style="font-weight: 500; font-size: x-large"><?php echo $dbdate; ?></span></p>
                     <p><label>Полное имя<br>
-                            <input class="input" id="fullname" name="fullname" size="32" type="text" value="<?php echo $dbfullname; ?>"></label></p>
+                            <input class="input" id="fullname" name="fullname" size="32" type="text"
+                                   value="<?php echo $dbfullname; ?>"></label></p>
                     <p><label>Телефон<br>
-                            <input class="input" id="phone" name="phone" placeholder="8**********" size="32" type="text" value="<?php echo $dbphone; ?>"></label></p>
+                            <input class="input" id="phone" name="phone" placeholder="8**********" size="32" type="text"
+                                   value="<?php echo $dbphone; ?>"></label></p>
                     <p><label>E-mail<br>
-                            <input class="input" id="email" name="email" size="32" type="email" value='<?php echo $dbemail; ?>'></label></p>
-                    <p class="submit"><input class="button" id="save" name="save" type="submit" value="Сохранить изменения"></p>
+                            <input class="input" id="email" name="email" size="32" type="email"
+                                   value='<?php echo $dbemail; ?>'></label></p>
+                    <p class="submit"><input class="button" id="save" name="save" type="submit"
+                                             value="Сохранить изменения"></p>
                 </form>
             </div>
         </center>

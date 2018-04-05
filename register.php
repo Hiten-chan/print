@@ -31,8 +31,8 @@ if (isset($_POST["register"])) {
             $result = mysqli_query($link, $sql);
 
             if ($result) {
-                $message = '<span class = "good">Аккаунт успешно создан!</br> Для входа используйте свой логин и пароль на странице входа</span></br>';
-                header('Refresh: ; URL=login.php');
+                $message = '<span class = "good">Аккаунт успешно создан!</br> Для авторизации используйте свой логин и пароль на странице входа</span></br>';
+                header('Refresh: 2; URL=login.php');
 
             } else {
                 $message = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
