@@ -9,7 +9,7 @@ if(!isset($_SESSION["session_username"]))
 <div id="menu">
     <!-- Меню -->
     <div class="tab">
-        <button class="<?php echo $state1 ?>" onclick="location.href='orders_history'">История заказов</button>
+        <button class="<?php echo $state1 ?>" onclick="location.href='orders_history.php'">История заказов</button>
         <button class="<?php echo $state2 ?>" onclick="location.href='new_order.php'">Создать заказ</button>
         <button class="<?php echo $state3 ?>" onclick="location.href='csettings.php'">Настройки аккаунта</button>
         <button class="<?php echo $state4 ?>" onclick="location.href='cchangepass.php'">Сменить пароль</button>
