@@ -35,7 +35,7 @@ if (isset($_POST["restore"])) {
         $password = generate_password(20);
         $headers = 'From: print8print@mail.ru';
         $mail = mail("$email", "Сброс пароля",
-            "Уважаемый(ая) $fullname, Вы сделали запрос на получение забытого пароля на сайте Print.\r\nВаш новый пароль: $password \r\nПри входе в систему обязательно смените пароль!",
+            "Уважаемый(ая) $fullname, Вы сделали запрос на получение забытого пароля на сайте Print.\r\nВаш новый пароль: $password\r\nПри входе в систему обязательно смените пароль!",
             $headers);
 
         $password = password_hash($password, PASSWORD_DEFAULT);
