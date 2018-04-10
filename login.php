@@ -10,9 +10,10 @@ if (isset($_SESSION["session_username"])) {
 
     if ($tag == 'c') {
         header("Location: client/client.php");
-
     } elseif ($tag == 'o') {
         header("Location: operator/operator.php");
+    } elseif ($tag == 'a') {
+        header("Location: admin/admin.php");
     }
 
 }
@@ -42,12 +43,12 @@ if (isset($_POST["login"])) {
 
                 if ($tag == 'c') {
                     header("Location: client/client.php");
-                    exit();
-
-                } else if ($tag == 'o') {
+                } elseif ($tag == 'o') {
                     header("Location: operator/operator.php");
-                    exit();
+                } elseif ($tag == 'a') {
+                    header("Location: admin/admin.php");
                 }
+
 
             } else {
                 $message = '<span class = "bad">Неверный пароль</span></br>';

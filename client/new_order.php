@@ -11,4 +11,3 @@ include("menu_client.php"); ?>
     <h3>Создать заказ</h3>
     <p>Форма создания заказа</p>
 </div>
-<?php include("../includes/footer.php"); ?>

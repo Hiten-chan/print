@@ -2,9 +2,8 @@
 <?php
 $state1 = 'links';
 $state2 = 'links';
-$state3 = 'links';
-$state4 = 'links active';
-include("menu_client.php"); ?>
+$state3 = 'links active';
+include("menu_admin.php"); ?>
 
 <?php
 $username = $_SESSION['session_username'];
@@ -53,23 +52,23 @@ if (isset($_POST["savepass"])) {
 ?>
 
 <?php include("../includes/header_account.php"); ?>
-<div id="chpass" class="content" style="display: block">
-    <div class="container msettings">
-        <center>
-            <div id="chpass">
-                <h1>Смена пароля</h1>
-                <?php echo $message; ?>
-                <form id="chpassform" method="post" name="chpassform">
-                    <p><label for="old_pass">Старый пароль<br>
-                            <input class="input" id="oldpass" name="oldpass" size="20" type="password" value=""></label>
-                    </p>
-                    <p><label for="new_pass">Новый пароль<br>
-                            <input class="input" id="newpass" name="newpass" size="20" type="password" value=""></label>
-                    </p>
-                    <p class="submit"><input class="button" id="savepass" name="savepass" type="submit"
-                                             value="Сохранить изменения"></p>
-                </form>
-            </div>
-        </center>
+    <div id="chpass" class="content" style="display: block">
+        <div class="container msettings">
+            <center>
+                <div id="chpass">
+                    <h1>Смена пароля</h1>
+                    <?php echo $message; ?>
+                    <form id="chpassform" method="post" name="chpassform">
+                        <p><label for="old_pass">Старый пароль<br>
+                                <input class="input" id="oldpass" name="oldpass" size="20" type="password" value=""></label>
+                        </p>
+                        <p><label for="new_pass">Новый пароль<br>
+                                <input class="input" id="newpass" name="newpass" size="20" type="password" value=""></label>
+                        </p>
+                        <p class="submit"><input class="button" id="savepass" name="savepass" type="submit"
+                                                 value="Сохранить изменения"></p>
+                    </form>
+                </div>
+            </center>
+        </div>
     </div>
-</div>

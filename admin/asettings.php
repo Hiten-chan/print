@@ -1,10 +1,10 @@
 <?php require_once("../includes/connection.php"); ?>
 <?php
 $state1 = 'links';
-$state2 = 'links';
-$state3 = 'links active';
-$state4 = 'links';
-include("menu_operator.php"); ?>
+$state2 = 'links active';
+$state3 = 'links';
+
+include("menu_admin.php"); ?>
 
 <?php
 $username = $_SESSION['session_username'];

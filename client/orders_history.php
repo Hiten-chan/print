@@ -11,4 +11,3 @@ include("menu_client.php"); ?>
 <div id="ohistory" class="content" style="display: block">
     <h3>Ваша история заказов</h3>
 </div>
-<?php include("../includes/footer.php"); ?>

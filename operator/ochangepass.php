@@ -73,4 +73,3 @@ if (isset($_POST["savepass"])) {
             </center>
         </div>
     </div>
-<?php include("../includes/footer.php"); ?>
