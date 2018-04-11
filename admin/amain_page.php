@@ -63,8 +63,8 @@ if (isset($_POST["find_oper"])) {
                     <?php echo $message1; ?>
                     <table style="table-layout: fixed">
                         <tr>
-                            <td align="center"><label>Логин</label></td>
-                            <td align="center"><label>Уровень доступа</label></td>
+                            <td width="50%" align="center"><label>Логин</label></td>
+                            <td width="50%" align="center"><label>Уровень доступа</label></td>
                         </tr>
                         <tr>
                             <td align="center"><input class="input" id="ctag" name="login" type="text"
@@ -95,7 +95,7 @@ if (isset($_POST["find_oper"])) {
                                                                      value="Вывести список администраров"></p></td>
                         </tr>
                     </table>
-                    <textarea style="resize: vertical; width: 100%; min-height: 10%"
+                    <textarea  rows="6" style="resize: vertical; width: 100%; min-height: 10%"
                               readonly><?php echo $message; ?></textarea>
                 </form>
             </div>
