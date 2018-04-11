@@ -22,14 +22,14 @@ if (isset($_POST["save"])) {
             if ($result != 0) {
                 $message1 = '<span class = "good">Уровень доступа пользователя<br> ' . $username . ' изменен</span></br>';
             } else {
-                $message1 = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+                $message1 = '<span class = "bad">Ошибка при работе с базой данных ¯\_(ツ)_/¯</span></br>';
                 printf("Errormessage: %s\n", mysqli_error($link));
             }
         } else {
-            $message1 = '<span class = "bad">Указан несуществующий уровень доступа</span></br>';
+            $message1 = '<span class = "bad">Указан несуществующий уровень доступа ¯\_(ツ)_/¯</span></br>';
         }
     } else {
-        $message1 = '<span class = "bad">Пользователь с таким логином не найден</span></br>';
+        $message1 = '<span class = "bad">Пользователь с таким логином не найден ¯\_(ツ)_/¯</span></br>';
     }
 }
 

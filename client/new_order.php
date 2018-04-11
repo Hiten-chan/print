@@ -7,7 +7,7 @@ $state4 = 'links';
 include("menu_client.php"); ?>
 
 <?php include("../includes/header_account.php"); ?>
-<div id="norder" class="content" style="display: block">
+<div id="neworder" class="content" style="display: block">
     <h3>Создать заказ</h3>
     <p>Форма создания заказа</p>
 </div>
