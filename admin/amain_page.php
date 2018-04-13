@@ -20,7 +20,7 @@ if (isset($_POST["save"])) {
         if ($tag == 'a' || $tag == 'c' || $tag == 'o') {
             $result = mysqli_query($link, "UPDATE users SET tag = '" . $tag . "' WHERE username = '" . $username . "'");
             if ($result != 0) {
-                $message1 = '<span class = "good">Уровень доступа пользователя<br> ' . $username . ' изменен</span></br>';
+                $message1 = '<span class = "good">Уровень доступа пользователя<br><big> ' . $username . ' </big>изменен</span></br>';
             } else {
                 $message1 = '<span class = "bad">Ошибка при работе с базой данных ¯\_(ツ)_/¯</span></br>';
                 printf("Errormessage: %s\n", mysqli_error($link));

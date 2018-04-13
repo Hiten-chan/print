@@ -98,7 +98,7 @@ span {
     font-size: 24px;
     line-height: 1;
     width: 100%;
-    padding: 3px;
+    padding: 0px;
     margin: 0 6px 5px 0;
     outline: none;
     border: 1px solid #d9d9d9;
@@ -110,6 +110,30 @@ span {
     -moz-box-shadow: 0 0 3px 0 rgba(245,130,32,0.75);
     box-shadow: 0 0 3px 0 rgba(245,130,32,0.75);
 }
+
+.container form .select {
+    background: #fbfbfb;
+    font-size: 18px;
+    line-height: 1;
+    width: 100%;
+    padding: 3px;
+    margin: 0 6px 5px 0;
+    outline: none;
+    border: 1px solid #d9d9d9;
+
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+
 
 /*!*= КНОПКИ
 --------------------------------------------------------*!*/
