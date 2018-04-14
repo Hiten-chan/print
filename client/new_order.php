@@ -9,6 +9,7 @@ include("menu_client.php");
 
 
 <?php
+
 $username = $_SESSION['session_username'];
 $message = '';
 $message1 = '';
@@ -20,6 +21,7 @@ $show_pduedate = '<option></option>';
 $show_url = '';
 $show_count = 0;
 $price = 0;
+$deadline = '';
 
 
 // Данные из таблицы Типов продукции (product_type)
@@ -90,9 +92,16 @@ if (isset($_POST["save"])) {
 
             $price = (int)$rptype * (int)$rpsize * (int)$rppaper * (int)$rpduedate * (int)$pcount;
 
+            if ($pduedate == 'fivedays') {
+                $deadline = date('Y-m-d', strtotime('+6 days'));
+            } elseif ($pduedate == 'oneday') {
+                $deadline = date('Y-m-d', strtotime('+2 days'));
+            }
+
+
             //Добавление нового заказа в таблицу
             $user_id = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'"))['user_id'];
-            $sql = "INSERT INTO orders (user_id, type, material, size, amount, url, cost) VALUES ('" . $user_id . "','" . $srow1['title'] . "', '" . $srow3['title'] . "', '" . $srow2['title'] . "', '" . $pcount . "', '" . $imageurl . "',  '" . $price . "')";
+            $sql = "INSERT INTO orders (user_id, type, material, size, amount, url, cost, deadline) VALUES ('" . $user_id . "','" . $srow1['title'] . "', '" . $srow3['title'] . "', '" . $srow2['title'] . "', '" . $pcount . "', '" . $imageurl . "',  '" . $price . "',   '" . $deadline . "')";
             $result = mysqli_query($link, $sql);
 
             if ($result) {
