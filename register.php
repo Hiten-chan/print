@@ -53,11 +53,11 @@ if (isset($_POST["register"])) {
             <h1>Регистрация</h1>
             <center><?php echo $message; ?></center>
             <form id="registerform" method="post" name="registerform">
-                <p><label for="user_login">Полное имя<br>
+                <p><label for="user_fullname">Полное имя<br>
                         <input class="input" id="fullname" name="fullname" size="32" type="text" value=""></label></p>
-                <p><label for="user_pass">E-mail<br>
+                <p><label for="user_email">E-mail<br>
                         <input class="input" id="email" name="email" size="32" type="email" value=""></label></p>
-                <p><label for="user_pass">Логин<br>
+                <p><label for="user_login">Логин<br>
                         <input class="input" id="username" name="username" size="20" type="text" value=""></label></p>
                 <p><label for="user_pass">Пароль<br>
                         <input class="input" id="password" name="password" size="32" type="password" value=""></label>
