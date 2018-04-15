@@ -8,11 +8,11 @@
     $colnames = '';
     while ($col = mysqli_fetch_row($res)) {
         if ($col[0] != 'user_id') {
-            $colnames .= $col[0] . ', ';
+            $colnames .= $col[0] . ',';
         }
     }
 
-    $colnames = substr($colnames, 0, -2);
+    $colnames = substr($colnames, 0, -1);
 
     $query = "SELECT $colnames FROM $tablename WHERE user_id = '" . $user_id . "'";
     $result = mysqli_query($dbname, $query);
@@ -30,8 +30,8 @@
     $row = mysqli_fetch_row($result);
     $total_cols = count($row);
 
-    $urlindex = array_search(' url', $colnames);
-    $statusindex = array_search(' status', $colnames);
+    $urlindex = array_search('url', $colnames);
+    $statusindex = array_search('status', $colnames);
     $dborderid = '';
     $dbstatus = '';
     $orderid = '';
