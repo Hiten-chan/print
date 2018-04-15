@@ -72,11 +72,11 @@ if (isset($_POST["login"])) {
         <div id="login">
             <h1>Вход</h1>
             <?php echo $message; ?>
-            <form action="" id="loginform" method="post" name="loginform">
+            <form id="loginform" method="post" name="loginform">
                 <p><label for="user_login">Логин<br>
-                        <input class="input" id="username" name="username" size="20" type="text" value=""></label></p>
+                        <input class="input" id="username" name="username" size="20" type="text"></label></p>
                 <p><label for="user_pass">Пароль<br>
-                        <input class="input" id="password" name="password" size="20" type="password" value=""></label></p>
+                        <input class="input" id="password" name="password" size="20" type="password"></label></p>
                 <p class="submit"><input class="button" name="login" type="submit" value="Вход"></p>
                 <p class="regtext">Еще не зарегистрированы? <br><a href="register.php">Регистрация!</a></p>
                 <p class="regtext">Вы что, забыли пароль? <br><a href="restore.php">Восстановить пароль!</a></p>

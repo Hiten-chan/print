@@ -64,6 +64,26 @@ span {
     box-shadow: 0 1px 3px rgba(0,0,0,.13);
 }
 
+.container_order_history {
+    padding: 25px 16px 25px 10px;
+    font-weight: 400;
+    overflow: hidden;
+    width: 95%;
+    height: auto;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,.13);
+    box-shadow: 0 1px 3px rgba(0,0,0,.13);
+}
+
+.container_order_history h1 {
+    color: #777;
+    text-align: center;
+    font-weight: 300;
+    border: 1px dashed #777;
+    margin-top: 13px;
+}
+
 #welcome {
     width: 500px;
     padding: 30px;
@@ -159,6 +179,7 @@ input::-webkit-inner-spin-button {
     background: -moz-linear-gradient(top,  #f88e11, #f06015);
     filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
 }
+
 /*!*= ПОДВАЛ*/
 /*--------------------------------------------------------*!*/
 footer {

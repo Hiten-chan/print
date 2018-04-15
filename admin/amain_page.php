@@ -67,10 +67,8 @@ if (isset($_POST["find_oper"])) {
                             <td width="50%" align="center"><label>Уровень доступа</label></td>
                         </tr>
                         <tr>
-                            <td align="center"><input class="input" id="ctag" name="login" type="text"
-                                                      value="<?php //echo $dbphone; ?>"></td>
-                            <td align="center"><input class="input" id="ctag" name="tag" type="text"
-                                                      value="<?php //echo $dbphone; ?>"></td>
+                            <td align="center"><input class="input" id="ctag" name="login" type="text"></td>
+                            <td align="center"><input class="input" id="ctag" name="tag" type="text"></td>
                         </tr>
                         <tr>
                             <td><label style="float: left">Уровни доступа:</label>
@@ -95,7 +93,7 @@ if (isset($_POST["find_oper"])) {
                                                                      value="Вывести список администраров"></p></td>
                         </tr>
                     </table>
-                    <textarea  rows="6" style="resize: vertical; width: 100%; min-height: 10%"
+                    <textarea rows="6" style="resize: vertical; width: 100%; min-height: 10%"
                               readonly><?php echo $message; ?></textarea>
                 </form>
             </div>
