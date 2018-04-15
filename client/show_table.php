@@ -68,7 +68,7 @@
         }
         $i++;
     }
-    if ($dbstatus == 'В обработке') {
+    if ($dbstatus == 'В обработке' || $dbstatus == 'Подтвержден') {
         $structure .= "<td><form method='post'><input type='text' name='idorder' value=$orderid hidden='hidden'><input formaction='orders_history.php' class='button' name='cancel' type='submit' value='Отменить'></form></td>";
     }
     $structure .= "</tr>";
@@ -93,7 +93,7 @@
 
             $i++;
         }
-        if ($dbstatus == 'В обработке' OR $dbstatus == 'Подтвержден') {
+        if ($dbstatus == 'В обработке' || $dbstatus == 'Подтвержден') {
             $structure .= "<td><form method='post'><input type='text' name='idorder' value=$orderid hidden='hidden'><input formaction='orders_history.php' class='button' name='cancel' type='submit' value='Отменить'></form></td>";
         } else {
             $structure .= "<td></td>";
