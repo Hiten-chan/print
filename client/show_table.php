@@ -1,8 +1,5 @@
 <?php
 
-//function showtable($dbname, $tablename, $userid)
-//{
-
     $structure = '';
     $res = mysqli_query($dbname, "SHOW COLUMNS FROM $tablename");
     $colnames = '';
@@ -104,7 +101,4 @@
         }
         $structure .= "</tr>" . "\r\n";
     }
-//}
-
-
 
