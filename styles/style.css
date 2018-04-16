@@ -67,7 +67,7 @@ span {
 .container_order_history {
     padding: 25px 16px 25px 10px;
     font-weight: 400;
-    overflow: hidden;
+    overflow: scroll;
     width: 97%;
     height: auto;
     background: #fff;

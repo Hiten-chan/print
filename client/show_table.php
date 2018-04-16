@@ -41,7 +41,7 @@
     $width_title = $total_cols + 1;
 
 
-    $structure .= "<table width='100%' border='3' cellspacing='1' cellpadding='2' align='center' style='table-layout: auto'>" . "\r\n";
+    $structure .= "<table width='100%' border='2' cellspacing='1' cellpadding='0' align='center' style='table-layout: auto; overflow: scroll; font-size: smaller'>" . "\r\n";
     $structure .= "<tr><td colspan=$width_title align=center style='font-weight: bold'>Ваши заказы</td></tr>" . "\r\n";
 
     $structure .= "<tr>" . "\r\n";
