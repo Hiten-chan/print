@@ -13,11 +13,11 @@ include("menu_client.php");
 $username = $_SESSION['session_username'];
 $message = '';
 $message1 = '';
-$ptypes = '' . $sizes = '' . $papers = '' . $duedates = '' . $end_price = '';
-$show_type = '<option></option>';
-$show_size = '<option></option>';
-$show_ppaper = '<option></option>';
-$show_pduedate = '<option></option>';
+$ptypes = '';
+$sizes = '';
+$papers = '';
+$duedates = '';
+$end_price = '';
 $show_url = '';
 $show_count = 0;
 $price = 0;
@@ -28,7 +28,7 @@ $deadline = '';
 $query1 = mysqli_query($link, "SELECT * FROM prodtypes");
 $row1 = mysqli_fetch_assoc($query1);
 do {
-    $ptypes .= '<option value=' . $row1['type'] . '>' . $row1['title'] . '</option>';
+    $ptypes .= '<option value=' . $row1['type'] . '>' . $row1['title'] . '</option>' . "\r\n";
 } while ($row1 = mysqli_fetch_array($query1));
 
 
@@ -36,7 +36,7 @@ do {
 $query2 = mysqli_query($link, "SELECT * FROM sizes");
 $row2 = mysqli_fetch_assoc($query2);
 do {
-    $sizes .= '<option value=' . $row2['size'] . '>' . $row2['title'] . '</option>';
+    $sizes .= '<option value=' . $row2['size'] . '>' . $row2['title'] . '</option>' . "\r\n";
 } while ($row2 = mysqli_fetch_array($query2));
 
 
@@ -44,7 +44,7 @@ do {
 $query3 = mysqli_query($link, "SELECT * FROM papers");
 $row3 = mysqli_fetch_assoc($query3);
 do {
-    $papers .= '<option value=' . $row3['paper'] . '>' . $row3['title'] . '</option>';
+    $papers .= '<option value=' . $row3['paper'] . '>' . $row3['title'] . '</option>' . "\r\n";
 } while ($row3 = mysqli_fetch_array($query3));
 
 
@@ -52,8 +52,9 @@ do {
 $query4 = mysqli_query($link, "SELECT * FROM duedates");
 $row4 = mysqli_fetch_assoc($query4);
 do {
-    $duedates .= '<option value=' . $row4['duedate'] . '>' . $row4['title'] . '</option>';
+    $duedates .= '<option value=' . $row4['duedate'] . '>' . $row4['title'] . '</option>' . "\r\n";
 } while ($row4 = mysqli_fetch_array($query4));
+
 
 
 if (isset($_POST["save"])) {
@@ -65,58 +66,83 @@ if (isset($_POST["save"])) {
     $pduedate = htmlspecialchars($_POST['duedate']);
     $imageurl = htmlspecialchars($_POST['imageurl']);
 
-    if ($ptype == '' or $psize == '' or $ppaper == '' or $pduedate == '') {
-        $message1 = '<span class = "bad">Не все параметры выбраны</span></br>';
+    $rptype = '';
+    $rpsize = '';
+    $rppaper = '';
+    $rpduedate = '';
+    $show_count = (int)$pcount;
+
+
+    //Проверка заполнения полей
+    if ($ptype != '') {
+        $srow1 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM prodtypes WHERE type = '" . $ptype . "'"));
+        $rptype = $srow1['rate'];
+        $ptypes = str_replace('<option value=' . $srow1['type'] . '>' . $srow1['title'] . '</option>', '<option value=' . $srow1['type'] . ' selected>' . $srow1['title'] . '</option>', $ptypes);
     } else {
+        $message1 .= '<span class = "bad">Поле "Вид печатной продукции" не заполнено!</span></br>';
+    }
 
-        if ($pcount > 0) {
+    if ($psize != '') {
+        $srow2 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM sizes WHERE size = '" . $psize . "'"));
+        $rpsize = $srow2['rate'];
+        $sizes = str_replace('<option value=' . $srow2['size'] . '>' . $srow2['title'] . '</option>', '<option value=' . $srow2['size'] . ' selected>' . $srow2['title'] . '</option>', $sizes);
+    } else {
+        $message1 .= '<span class = "bad">Поле "Формат печати" не заполнено!</span></br>';
+    }
 
-            $srow1 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM prodtypes WHERE type = '" . $ptype . "'"));
-            $rptype = $srow1['rate'];
-            $show_type = '<option value=' . $srow1['type'] . '>' . $srow1['title'] . '</option>';
+    if ($ppaper != '') {
+        $srow3 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM papers WHERE paper = '" . $ppaper . "'"));
+        $rppaper = $srow3['rate'];
+        $papers = str_replace('<option value=' . $srow3['paper'] . '>' . $srow3['title'] . '</option>', '<option value=' . $srow3['paper'] . ' selected>' . $srow3['title'] . '</option>', $papers);
+    } else {
+        $message1 .= '<span class = "bad">Поле "Тип бумаги" не заполнено!</span></br>';
+    }
 
-            $srow2 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM sizes WHERE size = '" . $psize . "'"));
-            $rpsize = $srow2['rate'];
-            $show_size = '<option value=' . $srow2['size'] . '>' . $srow2['title'] . '</option>';
+    if ($pcount < 1) {
+        $message1 .= '<span class = "bad">Количество копий не может быть меньше 1!</span></br>';
+    }
 
-            $srow3 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM papers WHERE paper = '" . $ppaper . "'"));
-            $rppaper = $srow3['rate'];
-            $show_ppaper = '<option value=' . $srow3['paper'] . '>' . $srow3['title'] . '</option>';
+    if ($pduedate != '') {
+        $srow4 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM duedates WHERE duedate = '" . $pduedate . "'"));
+        $rpduedate = $srow4['rate'];
+        $duedates = str_replace('<option value=' . $srow4['duedate'] . '>' . $srow4['title'] . '</option>', '<option value=' . $srow4['duedate'] . ' selected>' . $srow4['title'] . '</option>', $duedates);
+    } else {
+        $message1 .= '<span class = "bad">Поле "Срок исполнения заказа" не заполнено!</span></br>';
+    }
 
-            $srow4 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM duedates WHERE duedate = '" . $pduedate . "'"));
-            $rpduedate = $srow4['rate'];
-            $show_pduedate = '<option value=' . $srow4['duedate'] . '>' . $srow4['title'] . '</option>';
-
-            $show_count = (int)$pcount;
-            $show_url = $imageurl;
-
-            $price = (int)$rptype * (int)$rpsize * (int)$rppaper * (int)$rpduedate * (int)$pcount;
-
-            if ($pduedate == 'fivedays') {
-                $deadline = date('Y-m-d', strtotime('+6 days'));
-            } elseif ($pduedate == 'oneday') {
-                $deadline = date('Y-m-d', strtotime('+2 days'));
-            }
+    if ($imageurl != '') {
+        $show_url = $imageurl;
+    } else {
+        $message1 .= '<span class = "bad">Нет ссылки на изображение!</span></br>';
+    }
 
 
-            //Добавление нового заказа в таблицу
-            $user_id = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'"))['user_id'];
-            $sql = "INSERT INTO orders (user_id, type, material, size, amount, url, cost, deadline) VALUES ('" . $user_id . "','" . $srow1['title'] . "', '" . $srow3['title'] . "', '" . $srow2['title'] . "', '" . $pcount . "', '" . $imageurl . "',  '" . $price . "',   '" . $deadline . "')";
-            $result = mysqli_query($link, $sql);
+    //Рассчет окончательной цены
+    if ($message1 == '') {
+        $price = (int)$rptype * (int)$rpsize * (int)$rppaper * (int)$rpduedate * (int)$pcount;
+    }
 
-            if ($result) {
-                $message = '<span class = "good">Заказ успешно создан!</br></span></br>';
-                header('Refresh: 2; URL=orders_history.php');
 
-            } else {
-                $message = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
-                printf("Errormessage: %s\n", mysqli_error($link));
-            }
+    //Рассчет дедлайна для заказа
+    if ($pduedate == 'fivedays') {
+        $deadline = date('Y-m-d', strtotime('+6 days'));
+    } elseif ($pduedate == 'oneday') {
+        $deadline = date('Y-m-d', strtotime('+2 days'));
+    }
 
-        } else {
 
-            $message1 = '<span class = "bad">Количество копий не может быть меньше 1</span></br>';
-        }
+    //Добавление нового заказа в таблицу
+    $user_id = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'"))['user_id'];
+    $sql = "INSERT INTO orders (user_id, type, material, size, amount, url, cost, deadline) VALUES ('" . $user_id . "','" . $srow1['title'] . "', '" . $srow3['title'] . "', '" . $srow2['title'] . "', '" . $pcount . "', '" . $imageurl . "',  '" . $price . "',   '" . $deadline . "')";
+    $result = mysqli_query($link, $sql);
+
+    if ($result) {
+        $message = '<span class = "good">Заказ успешно создан!</br></span></br>';
+        header('Refresh: 2; URL=orders_history.php');
+
+    } else {
+        $message = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+        printf("Errormessage: %s\n", mysqli_error($link));
     }
 
 
@@ -134,37 +160,60 @@ if (isset($_POST["price"])) {
     $pduedate = htmlspecialchars($_POST['duedate']);
     $imageurl = htmlspecialchars($_POST['imageurl']);
 
-    if ($ptype == '' or $psize == '' or $ppaper == '' or $pduedate == '') {
-        $message1 = '<span class = "bad">Не все параметры выбраны</span></br>';
-    } else {
+    $rptype = '';
+    $rpsize = '';
+    $rppaper = '';
+    $rpduedate = '';
+    $show_count = (int)$pcount;
 
+
+    //Проверка заполнения полей
+    if ($ptype != '') {
         $srow1 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM prodtypes WHERE type = '" . $ptype . "'"));
         $rptype = $srow1['rate'];
-        $show_type = '<option value=' . $srow1['type'] . '>' . $srow1['title'] . '</option>';
+        $ptypes = str_replace('<option value=' . $srow1['type'] . '>' . $srow1['title'] . '</option>', '<option value=' . $srow1['type'] . ' selected>' . $srow1['title'] . '</option>', $ptypes);
+    } else {
+        $message1 .= '<span class = "bad">Поле "Вид печатной продукции" не заполнено!</span></br>';
+    }
 
+    if ($psize != '') {
         $srow2 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM sizes WHERE size = '" . $psize . "'"));
         $rpsize = $srow2['rate'];
-        $show_size = '<option value=' . $srow2['size'] . '>' . $srow2['title'] . '</option>';
+        $sizes = str_replace('<option value=' . $srow2['size'] . '>' . $srow2['title'] . '</option>', '<option value=' . $srow2['size'] . ' selected>' . $srow2['title'] . '</option>', $sizes);
+    } else {
+        $message1 .= '<span class = "bad">Поле "Формат печати" не заполнено!</span></br>';
+    }
 
+    if ($ppaper != '') {
         $srow3 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM papers WHERE paper = '" . $ppaper . "'"));
         $rppaper = $srow3['rate'];
-        $show_ppaper = '<option value=' . $srow3['paper'] . '>' . $srow3['title'] . '</option>';
+        $papers = str_replace('<option value=' . $srow3['paper'] . '>' . $srow3['title'] . '</option>', '<option value=' . $srow3['paper'] . ' selected>' . $srow3['title'] . '</option>', $papers);
+    } else {
+        $message1 .= '<span class = "bad">Поле "Тип бумаги" не заполнено!</span></br>';
+    }
 
+    if ($pcount < 1) {
+        $message1 .= '<span class = "bad">Количество копий не может быть меньше 1!</span></br>';
+    }
+
+    if ($pduedate != '') {
         $srow4 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM duedates WHERE duedate = '" . $pduedate . "'"));
         $rpduedate = $srow4['rate'];
-        $show_pduedate = '<option value=' . $srow4['duedate'] . '>' . $srow4['title'] . '</option>';
+        $duedates = str_replace('<option value=' . $srow4['duedate'] . '>' . $srow4['title'] . '</option>', '<option value=' . $srow4['duedate'] . ' selected>' . $srow4['title'] . '</option>', $duedates);
+    } else {
+        $message1 .= '<span class = "bad">Поле "Срок исполнения заказа" не заполнено!</span></br>';
+    }
 
+    if ($imageurl != '') {
         $show_url = $imageurl;
-        $show_count = (int)$pcount;
+    } else {
+        $message1 .= '<span class = "bad">Нет ссылки на изображение!</span></br>';
+    }
 
 
-        if ($pcount > 0) {
-
-            $price = (int)$rptype * (int)$rpsize * (int)$rppaper * (int)$rpduedate * (int)$pcount;
-        } else {
-            $message1 = '<span class = "bad">Количество копий не может быть меньше 1</span></br>';
-        }
-
+    //Рассчет окончательной цены
+    if ($message1 == '') {
+        $price = (int)$rptype * (int)$rpsize * (int)$rppaper * (int)$rpduedate * (int)$pcount;
     }
 
 }
@@ -184,19 +233,20 @@ if (isset($_POST["price"])) {
 
                     <p><label>Вид печатной продукции
                             <select class="select" id="ptype" name="ptype">
-                                <?php echo $show_type ?>
+                                <option></option>
                                 <?php echo $ptypes ?>
+
                             </select></label></p>
 
                     <p><label>Формат печати
                             <select class="select" id="psize" name="psize">
-                                <?php echo $show_size ?>
+                                <option></option>
                                 <?php echo $sizes ?>
                             </select></label></p>
 
                     <p><label>Тип бумаги
                             <select class="select" id="ppaper" name="ppaper">
-                                <?php echo $show_ppaper ?>
+                                <option></option>
                                 <?php echo $papers ?>
                             </select></label></p>
 
@@ -206,7 +256,7 @@ if (isset($_POST["price"])) {
 
                     <p><label>Ориентировочный срок исполнения заказа
                             <select class="select" id="duedate" name="duedate">
-                                <?php echo $show_pduedate ?>
+                                <option></option>
                                 <?php echo $duedates ?>
                             </select></label></p>
 
@@ -227,7 +277,7 @@ if (isset($_POST["price"])) {
                                     ₽</span></td>
                         </tr>
                         <tr>
-                            <td width="50%" align="left"><span style="font-size: small">Не забудьте рассчитать окончательную цену,<br> перед отправкой заказа</span>
+                            <td width="50%" align="left"><span style="font-size: small; font-weight: bolder">Не забудьте рассчитать окончательную цену,<br> перед отправкой заказа</span>
                             </td>
                             <td width="50%" align="right"><p class="submit"><input class="button" id="save" name="save"
                                                                                    type="submit"
