@@ -21,9 +21,12 @@
 
     $colnames = explode(',', $colnames);
 
+    $ruscolnames = '№ Заказа,Тип,Бумага,Формат,Кол-во,Дата создания,Срок исполнения,URL,Цена,Типограф,Статус';
+    $ruscolnames = explode(',', $ruscolnames);
+
 
     if (!$total_rows) {
-        $structure .= "<HTML><BODY><h2>У вас не создано ни одного заказа</h2></BODY></HTML>";
+        $structure .= "<HTML><BODY><h2>У вас не создано ни одного заказа</h2></BODY></HTML>" . "\r\n";
         return;
     }
 
@@ -38,29 +41,29 @@
     $width_title = $total_cols + 1;
 
 
-    $structure .= "<table width='100%' border='2' cellspacing='0' cellpadding='0' align='center' style='table-layout: auto'>";
-    $structure .= "<tr><td colspan=$width_title align=center>История заказов</td></tr>";
+    $structure .= "<table width='100%' border='3' cellspacing='1' cellpadding='2' align='center' style='table-layout: auto'>" . "\r\n";
+    $structure .= "<tr><td colspan=$width_title align=center style='font-weight: bold'>Ваши заказы</td></tr>" . "\r\n";
 
-    $structure .= "<tr>";
+    $structure .= "<tr>" . "\r\n";
     $i = 0;
-    while ($i < count($colnames)) {
-        $structure .= "<td>" . $colnames[$i] . "</td>";
+    while ($i < count($ruscolnames)) {
+        $structure .= "<td>" . $ruscolnames[$i] . "</td>" . "\r\n";
         $i++;
     }
-    $structure .= "<td></td>";
-    $structure .= "</tr>";
+    $structure .= "<td></td>" . "\r\n";
+    $structure .= "</tr>" . "\r\n";
 
 
-    $structure .= "<tr>";
+    $structure .= "<tr>" . "\r\n";
     $i = 0;
     while ($i < $total_cols) {
         if ($i == $urlindex) {
-            $structure .= "<td>" . '<a href=' . $row[$i] . '>URL</a></td>';
+            $structure .= "<td>" . '<a href=' . $row[$i] . '>URL</a></td>' . "\r\n";
         } else if ($i == $statusindex) {
-            $structure .= "<td>" . $row[$i] . "</td>";
+            $structure .= "<td>" . $row[$i] . "</td>" . "\r\n";
             $dbstatus = $row[$i];
         } else {
-            $structure .= "<td>" . $row[$i] . "</td>";
+            $structure .= "<td>" . $row[$i] . "</td>" . "\r\n";
         }
 
         if ($i == $dborderid) {
@@ -69,9 +72,10 @@
         $i++;
     }
     if ($dbstatus == 'В обработке' || $dbstatus == 'Подтвержден') {
-        $structure .= "<td><form method='post'><input type='text' name='idorder' value=$orderid hidden='hidden'><input formaction='orders_history.php' class='button' name='cancel' type='submit' value='Отменить'></form></td>";
+        $structure .= "<td><form method='post'><input type='text' name='idorder' value=$orderid hidden='hidden'><input formaction='orders_history.php' class='button' name='cancel' type='submit' value='Отменить'></form></td>" . "\r\n";
     }
-    $structure .= "</tr>";
+    $structure .= "<td></td>" . "\r\n";
+    $structure .= "</tr>" . "\r\n";
 
 
     while ($row = mysqli_fetch_row($result)) {
@@ -79,12 +83,12 @@
         $structure .= "<tr>";
         while ($i < $total_cols) {
             if ($i == $urlindex) {
-                $structure .= "<td>" . '<a href=' . $row[$i] . '>URL</a></td>';
+                $structure .= "<td>" . '<a href=' . $row[$i] . '>URL</a></td>' . "\r\n";
             } else if ($i == $statusindex) {
-                $structure .= "<td>" . $row[$i] . "</td>";
+                $structure .= "<td>" . $row[$i] . "</td>" . "\r\n";
                 $dbstatus = $row[$i];
             } else {
-                $structure .= "<td>" . $row[$i] . "</td>";
+                $structure .= "<td>" . $row[$i] . "</td>" . "\r\n";
             }
 
             if ($i == $dborderid) {
@@ -94,11 +98,11 @@
             $i++;
         }
         if ($dbstatus == 'В обработке' || $dbstatus == 'Подтвержден') {
-            $structure .= "<td><form method='post'><input type='text' name='idorder' value=$orderid hidden='hidden'><input formaction='orders_history.php' class='button' name='cancel' type='submit' value='Отменить'></form></td>";
+            $structure .= "<td><form method='post'><input type='text' name='idorder' value=$orderid hidden='hidden'><input formaction='orders_history.php' class='button' name='cancel' type='submit' value='Отменить'></form></td>" . "\r\n";
         } else {
-            $structure .= "<td></td>";
+            $structure .= "<td></td>" . "\r\n";
         }
-        $structure .= "</tr>";
+        $structure .= "</tr>" . "\r\n";
     }
 //}
 
