@@ -19,7 +19,7 @@ $tablename = 'orders';
 <div id="ohistory" class="content" style="display: block">
     <div class="container_order_history">
         <center>
-            <div id="settings">
+            <div id="settings" style="overflow: scroll">
                 <h1>Ваша история заказов</h1>
 
                     <?php include("show_table.php");
