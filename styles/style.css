@@ -1,5 +1,5 @@
-/*= ОБЩИЕ СТИЛИ
-	--------------------------------------------------------*/
+/* ОБЩИЕ СТИЛИ */
+
 body {
     background: #efefef;
     font-family: 'Open Sans', sans-serif;
@@ -50,8 +50,9 @@ span {
     color: #777;
 }
 
-/*= КОНТЕЙНЕРЫ
---------------------------------------------------------*/
+
+/* КОНТЕЙНЕРЫ */
+
 .container {
     padding: 25px 16px 25px 10px;
     font-weight: 400;
@@ -155,8 +156,7 @@ input::-webkit-inner-spin-button {
 
 
 
-/*!*= КНОПКИ
---------------------------------------------------------*!*/
+/* КНОПКИ */
 
 .button{
     border: solid 1px #da7c0c;
@@ -180,8 +180,9 @@ input::-webkit-inner-spin-button {
     filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
 }
 
-/*!*= ПОДВАЛ*/
-/*--------------------------------------------------------*!*/
+
+/* ПОДВАЛ */
+
 footer {
     color: #777;
     font-size: 12px;
