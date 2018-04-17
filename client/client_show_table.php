@@ -40,7 +40,7 @@ $width_title = $total_cols + 1;
 
 //Формируем название таблицы
 $structure .= "<table width='100%' border='2' cellspacing='1' cellpadding='2' align='center' style='table-layout: auto; overflow: scroll'>" . "\r\n";
-$structure .= "<tr><td colspan=$width_title align=center style='font-weight: bold'>Ваши заказы</td></tr>" . "\r\n";
+//$structure .= "<tr><td colspan=$width_title align=center style='font-weight: bold'>Ваши заказы</td></tr>" . "\r\n";
 
 
 //Формируем шапку таблицы

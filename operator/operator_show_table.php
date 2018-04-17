@@ -3,7 +3,9 @@
 $structure = '';
 $res = mysqli_query($dbname, "SHOW COLUMNS FROM $tablename");
 $colnames = '';
-while ($col = mysqli_fetch_row($res)) {$colnames .= $col[0] . ',';}
+while ($col = mysqli_fetch_row($res)) {
+    $colnames .= $col[0] . ',';
+}
 
 $colnames = substr($colnames, 0, -1);
 
@@ -45,12 +47,12 @@ $structure .= "<table id='grid' width='100%' border='2' cellspacing='1' cellpadd
 
 
 //Формируем шапку таблицы
-$structure .="<thead>\r\n<tr>\r\n";
+$structure .= "<thead>\r\n<tr>\r\n";
 
 $i = 0;
 while ($i < count($ruscolnames)) {
 
-    if ($i == $costindex || $i == $user_idindex || $i == $order_idindex || $i == $countindex){
+    if ($i == $costindex || $i == $user_idindex || $i == $order_idindex || $i == $countindex) {
         $structure .= "<th data-type='number' align='center' style= 'font-size: smaller'>$ruscolnames[$i]</th>\r\n";
     } else {
         $structure .= "<th data-type='string' align='center' style= 'font-size: smaller'>$ruscolnames[$i]</th>\r\n";
@@ -60,7 +62,6 @@ while ($i < count($ruscolnames)) {
 $structure .= "<th align='center' style= 'font-size: smaller'>Изменить статус</th>\r\n";
 
 $structure .= "</tr>\r\n</thead>\r\n";
-
 
 
 $structure .= "<tbody>\r\n<tr>\r\n";
@@ -92,10 +93,17 @@ while ($i < $total_cols) {
     }
     $i++;
 }
-if ($dbstatus == 'В обработке' || $dbstatus == 'Подтвержден') {
-    $structure .= "<td align='center'><form method='post'><input type='text' name='idorder' value=$orderid hidden='hidden'><input formaction='orders_history.php' class='button' name='cancel' type='submit' value='Отменить'></form></td>\r\n";
+
+if ($dbstatus == 'Отменен' || $dbstatus == 'Закрыт') {
+    $structure .= "<td align='center'></td>" . "\r\n";
+} else {
+    $structure .= "<td align='center'><form method='post'>\r\n";
+    $structure .= "<select class='select' id='status' name='status' style='align-content: center'>\r\n";
+    $structure .= "<option value='0'>Выберите</option>\r\n<option value='В обработке'>В обработке</option>\r\n<option value='Подтвержден'>Подтвержден</option>\r\n";
+    $structure .= "<option value='Исполняется'>Исполняется</option>\r\n<option value='Готов к выдаче'>Готов к выдаче</option>\r\n<option value='Закрыт'>Закрыт</option>\r\n";
+    $structure .= "<option value='Отменен'>Отменен</option></select>\r\n<input formaction='orders.php' class='button' name='change' type='submit' value='Изменить'>";
+    $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form></td>\r\n";
 }
-$structure .= "<td align='center'></td>\r\n";
 $structure .= "</tr>\r\n";
 
 
@@ -131,12 +139,13 @@ while ($row = mysqli_fetch_row($result)) {
 
         $i++;
     }
+
     if ($dbstatus == 'Отменен' || $dbstatus == 'Закрыт') {
         $structure .= "<td align='center'></td>" . "\r\n";
     } else {
         $structure .= "<td align='center'><form method='post'>\r\n";
         $structure .= "<select class='select' id='status' name='status' style='align-content: center'>\r\n";
-        $structure .= "<option value='0'></option>\r\n<option value='В обработке'>В обработке</option>\r\n<option value='Подтвержден'>Подтвержден</option>\r\n";
+        $structure .= "<option value='0'>Выберите</option>\r\n<option value='В обработке'>В обработке</option>\r\n<option value='Подтвержден'>Подтвержден</option>\r\n";
         $structure .= "<option value='Исполняется'>Исполняется</option>\r\n<option value='Готов к выдаче'>Готов к выдаче</option>\r\n<option value='Закрыт'>Закрыт</option>\r\n";
         $structure .= "<option value='Отменен'>Отменен</option></select>\r\n<input formaction='orders.php' class='button' name='change' type='submit' value='Изменить'>";
         $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form></td>\r\n";
