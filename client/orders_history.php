@@ -22,19 +22,20 @@ $tablename = 'orders';
             <div id="settings">
                 <h1>Ваша история заказов</h1>
 
-                    <?php include("show_table.php");
-                    if (isset($_POST['cancel'])) {
+                <?php include("client_show_table.php");
+                if (isset($_POST['cancel'])) {
 
                     $id_order = htmlspecialchars($_POST['idorder']);
                     $result = mysqli_query($link, "UPDATE orders SET `status` = 'Отменен' WHERE order_id = '" . $id_order . "'");
 
                     if ($result != 0) {
-                        include("show_table.php");
+                        include("client_show_table.php");
                     } else {
                         printf("Errormessage: %s\n", mysqli_error($link));
                     }
 
-                } ?>
+                }
+                ?>
                 <?php echo $structure; ?>
             </div>
         </center>
