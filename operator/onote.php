@@ -11,4 +11,3 @@ include("menu_operator.php"); ?>
     <div id="notes" class="content" style="display: block">
         <h3>Нотификации</h3>
     </div>
-<?php include("../includes/footer.php"); ?>

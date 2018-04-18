@@ -19,7 +19,6 @@
 .content {
     width: 76%;
     height: 100%;
-    /*float: left; !* Новый контекст форматирования *!*!*/
     background: #efefef;
     font-family: 'Open Sans', sans-serif;
     color: #777;

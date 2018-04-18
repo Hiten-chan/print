@@ -2,9 +2,8 @@
 <?php
 $state1 = 'links';
 $state2 = 'links';
-$state3 = 'links';
-$state4 = 'links active';
-include("menu_client.php"); ?>
+$state3 = 'links active';
+include("menu_admin.php"); ?>
 
 <?php
 $username = $_SESSION['session_username'];

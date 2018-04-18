@@ -135,4 +135,3 @@ if (isset($_POST["save"])) {
         </center>
     </div>
 </div>
-<?php include("../includes/footer.php"); ?>
