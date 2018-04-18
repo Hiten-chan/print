@@ -16,7 +16,7 @@ $total_rows = mysqli_num_rows($result);
 
 $colnames = explode(',', $colnames);
 
-$ruscolnames = '№ Заказа,ID клиента,Тип,Бумага,Размер,Кол-во,Дата создания,Срок исполнения,URL,Цена (₽),Типограф,Статус';
+$ruscolnames = '№ Заказа,ID клиента,Тип,Бумага,Размер,Кол-во,Дата создания,Срок исполнения,URL,Цена (₽),ID Типографа,Статус';
 $ruscolnames = explode(',', $ruscolnames);
 
 

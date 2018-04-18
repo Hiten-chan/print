@@ -88,8 +88,9 @@ while ($i < $total_cols) {
 }
 if ($dbstatus == 'В обработке' || $dbstatus == 'Подтвержден') {
     $structure .= "<td align='center'><form method='post'><input type='text' name='idorder' value=$orderid hidden='hidden'><input formaction='orders_history.php' class='button' name='cancel' type='submit' value='Отменить'></form></td>\r\n";
+} else {
+    $structure .= "<td align='center'></td>\r\n";
 }
-
 $structure .= "</tr>\r\n";
 
 
