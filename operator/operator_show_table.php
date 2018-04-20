@@ -16,7 +16,7 @@ $total_rows = mysqli_num_rows($result);
 
 $colnames = explode(',', $colnames);
 
-$ruscolnames = '№ Заказа,ID клиента,Тип,Бумага,Формат,Кол-во,Дата создания,Срок исполнения,URL,Цена (₽),ID Типографа,Статус';
+$ruscolnames = '№ Заказа,ID клиента,Тип,Бумага,Формат,Кол-во,Дата<br>создания,Срок исполнения,URL,Цена (₽),ID Типографа,Статус';
 $ruscolnames = explode(',', $ruscolnames);
 
 
@@ -40,7 +40,7 @@ $typoindex = array_search('typo_id', $colnames);
 $dborderid = '';
 $dbstatus = '';
 $orderid = '';
-$typographers = '';
+$typographers = '<option value=""></option>\r\n';
 $width_title = $total_cols + 1;
 
 
@@ -53,7 +53,7 @@ do {
 
 
 //Формируем название таблицы
-$structure .= "<table id='table' class='sortable' width='100%' border='2' cellspacing='1' cellpadding='2' align='center' style='table-layout: auto; overflow: scroll'>\r\n";
+$structure .= "<table id='table' class='sortable' width='100%' border='1' cellspacing='1' cellpadding='1' align='center' style='table-layout: auto; overflow: scroll'>\r\n";
 //$structure .= "<tr><td colspan=$width_title align=center style='font-weight: bold'>Ваши заказы</td></tr>" . "\r\n";
 
 
@@ -101,6 +101,15 @@ while ($i < $total_cols) {
 
     } else if ($i == $costindex) {
         $structure .= "<td align='center'>$row[$i]</td>\r\n";
+
+    } else if ($i == $typoindex) {
+
+        $typos = str_replace('<option value=' . $row[$i] . '>' . $row[$i] . '</option>', '<option value=' . $row[$i] . ' selected>' . $row[$i] . '</option>', $typographers);
+        $structure .= "<td align='center'><form method='post'>\r\n";
+        $structure .= "<select class='select' id='typo' name='typo' style='align-content: center; padding: 0 0 0 5%; -webkit-appearance: none; -moz-appearance: none'>\r\n";
+        $structure .= "$typos</select>\r\n<input formaction='orders.php' class='button' name='changetypo' type='submit' value='Назначить'>";
+        $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form></td>\r\n";
+
     } else {
         $structure .= "<td align='center'>$row[$i]</td>\r\n";
     }
@@ -132,7 +141,9 @@ while ($row = mysqli_fetch_row($result)) {
 
         if ($i == $urlindex) {
             $structure .= "<td align='center'><a href=$row[$i]>URL</a></td>\r\n";
+
         } else if ($i == $statusindex) {
+
             if ($row[$i] == 'В обработке') {
                 $structure .= "<td align='center' style='color: #ffaa45; font-weight: bold'><span hidden='hidden'>1</span>$row[$i]</td>\r\n";
             } elseif ($row[$i] == 'Подтвержден') {
@@ -152,11 +163,15 @@ while ($row = mysqli_fetch_row($result)) {
 
         } else if ($i == $costindex) {
             $structure .= "<td align='center'>$row[$i]</td>\r\n";
-//        } else if ($i == $typoindex) {
-//            $structure .= "<td align='center'><form method='post'>\r\n";
-//            $structure .= "<select class='select' id='typo' name='typo' style='align-content: center'>\r\n";
-//            $structure .= "$typographers</select>\r\n<input formaction='orders.php' class='button' name='change' type='submit' value='Назначить'>";
-//            $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form></td>\r\n";
+
+        } else if ($i == $typoindex) {
+
+            $typos = str_replace('<option value=' . $row[$i] . '>' . $row[$i] . '</option>', '<option value=' . $row[$i] . ' selected>' . $row[$i] . '</option>', $typographers);
+            $structure .= "<td align='center'><form method='post'>\r\n";
+            $structure .= "<select class='select' id='typo' name='typo' style='align-content: center; padding: 0 0 0 5%; -webkit-appearance: none; -moz-appearance: none'>\r\n";
+            $structure .= "$typos</select>\r\n<input formaction='orders.php' class='button' name='changetypo' type='submit' value='Назначить'>";
+            $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form></td>\r\n";
+
         } else {
             $structure .= "<td align='center'>$row[$i]</td>\r\n";
         }
@@ -177,11 +192,6 @@ while ($row = mysqli_fetch_row($result)) {
         $structure .= "<option value='Исполняется'>Исполняется</option>\r\n<option value='Готов к выдаче'>Готов к выдаче</option>\r\n<option value='Закрыт'>Закрыт</option>\r\n";
         $structure .= "<option value='Отменен'>Отменен</option></select>\r\n<input formaction='orders.php' class='button' name='change' type='submit' value='Изменить'>";
         $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form>\r\n";
-
-//        $structure .= "<form method='post'>\r\n";
-//        $structure .= "<select class='select' id='typo' name='typo' style='align-content: center'>\r\n";
-//        $structure .= "$typographers</select>\r\n<input formaction='orders.php' class='button' name='change' type='submit' value='Назначить'>";
-//        $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form></td>\r\n";
     }
     $structure .= "</tr>\r\n";
 }
