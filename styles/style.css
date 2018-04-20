@@ -215,6 +215,11 @@ input::-webkit-inner-spin-button {
 }
 
 
+#delete {
+    background: url('../images/delete.png') no-repeat top;
+}
+
+
 /* ПОДВАЛ */
 footer {
     color: #777;

@@ -19,7 +19,7 @@ $tablename = 'orders';
         <center>
             <div id="settings">
                 <h1>Полная таблица заказов</h1>
-                <?php include("show_allorders.php");?>
+                <?php include("allorders_table.php");?>
                 <?php echo $structure; ?>
 
                 <div id="controls">

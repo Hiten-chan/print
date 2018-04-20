@@ -25,14 +25,25 @@ $tablename = 'orders';
 
                     $status = htmlspecialchars($_POST['status']);
                     $id_order = htmlspecialchars($_POST['idorder']);
+                    $dbstatus = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM orders WHERE order_id = '" . $id_order . "'"))['status'];
 
-                    if ($status != '0') {
+                    if ($status != '0' and $status != $dbstatus) {
 
                         $result = mysqli_query($link, "UPDATE orders SET `status` = '" . $status . "' WHERE order_id = '" . $id_order . "'");
 
 
                         if ($result != 0) {
                             include("operator_show_table.php");
+
+                            $user_id = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM orders WHERE order_id = '" . $id_order . "'"))['user_id'];
+                            $cstatus = '"'.$status.'"';
+                            $sql1 = "INSERT INTO notifications (user_id, type, text) VALUES ('" . $user_id . "', 'c', 'Статус заказа №$id_order изменен на ". $cstatus ."')";
+                            $result1 = mysqli_query($link, $sql1);
+
+                            if ($result1 == '0') {
+                                printf("Errormessage: %s\n", mysqli_error($link));
+                            }
+
                         } else {
                             printf("Errormessage: %s\n", mysqli_error($link));
                         }
@@ -49,7 +60,6 @@ $tablename = 'orders';
                     if ($typo_id != '0') {
 
                         $result = mysqli_query($link, "UPDATE orders SET `typo_id` = '" . $typo_id . "' WHERE order_id = '" . $id_order . "'");
-
 
                         if ($result != 0) {
                             include("operator_show_table.php");

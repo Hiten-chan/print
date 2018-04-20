@@ -2,6 +2,7 @@
 <?php
 $state1 = 'links';
 $state2 = 'links active';
+$state5 = 'links';
 $state3 = 'links';
 $state4 = 'links';
 include("menu_client.php");
@@ -11,15 +12,13 @@ include("menu_client.php");
 <?php
 
 $username = $_SESSION['session_username'];
-$message = '';
-$message1 = '';
+$message = ''; $message1 = ''; $message2 = '';
 $ptypes = '';
 $sizes = '';
 $papers = '';
 $duedates = '';
 $end_price = '';
-$show_url = '';
-$show_count = 0;
+$show_url = ''; $show_count = 0;
 $price = 0;
 $deadline = '';
 
@@ -138,7 +137,17 @@ if (isset($_POST["save"])) {
 
     if ($result) {
         $message = '<span class = "good">Заказ успешно создан!</br></span></br>';
-        header('Refresh: 2; URL=orders_history.php');
+
+//        $order_id = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM orders WHERE user_id = '" . $user_id . "' AND user_id = '" . $user_id . "'"))['order_id'];
+        $sql1 = "INSERT INTO notifications (user_id, type, text) VALUES ('" . $user_id . "', 'o', 'Пользователь №" . $user_id . " создал новый заказ')";
+        $result1 = mysqli_query($link, $sql1);
+
+        if ($result1) {
+            header('Refresh: 2; URL=orders_history.php');
+        } else {
+            $message2 = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+            printf("Errormessage: %s\n", mysqli_error($link));
+        }
 
     } else {
         $message = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
@@ -229,6 +238,7 @@ if (isset($_POST["price"])) {
                 <h1>Создание нового заказа</h1>
                 <?php echo $message; ?>
                 <?php echo $message1; ?>
+                <?php echo $message2; ?>
                 <form id="settingsform" method="post" name="settingsform">
 
                     <p><label>Вид печатной продукции
