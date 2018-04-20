@@ -9,7 +9,7 @@ while ($col = mysqli_fetch_row($res)) {
 
 $colnames = substr($colnames, 0, -1);
 
-$query = "SELECT * FROM $tablename WHERE status NOT LIKE 'Отменен' AND status NOT LIKE 'Закрыт'";
+$query = "SELECT * FROM $tablename";
 $result = mysqli_query($dbname, $query);
 
 $total_rows = mysqli_num_rows($result);
@@ -70,7 +70,6 @@ while ($i < count($ruscolnames)) {
     }
     $i++;
 }
-$structure .= "<th class='nosort' align='center' style= 'font-size: smaller'>Изменить статус</th>\r\n";
 
 $structure .= "</tr>\r\n</thead>\r\n";
 
@@ -110,17 +109,6 @@ while ($i < $total_cols) {
     }
     $i++;
 }
-
-if ($dbstatus == 'Отменен' || $dbstatus == 'Закрыт') {
-    $structure .= "<td align='center'></td>" . "\r\n";
-} else {
-    $structure .= "<td align='center'><form method='post'>\r\n";
-    $structure .= "<select class='select' id='status' name='status' style='align-content: center'>\r\n";
-    $structure .= "<option value='0'>Выберите</option>\r\n<option value='В обработке'>В обработке</option>\r\n<option value='Подтвержден'>Подтвержден</option>\r\n";
-    $structure .= "<option value='Исполняется'>Исполняется</option>\r\n<option value='Готов к выдаче'>Готов к выдаче</option>\r\n<option value='Закрыт'>Закрыт</option>\r\n";
-    $structure .= "<option value='Отменен'>Отменен</option></select>\r\n<input formaction='orders.php' class='button' name='change' type='submit' value='Изменить'>";
-    $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form></td>\r\n";
-}
 $structure .= "</tr>\r\n";
 
 
@@ -152,11 +140,6 @@ while ($row = mysqli_fetch_row($result)) {
 
         } else if ($i == $costindex) {
             $structure .= "<td align='center'>$row[$i]</td>\r\n";
-//        } else if ($i == $typoindex) {
-//            $structure .= "<td align='center'><form method='post'>\r\n";
-//            $structure .= "<select class='select' id='typo' name='typo' style='align-content: center'>\r\n";
-//            $structure .= "$typographers</select>\r\n<input formaction='orders.php' class='button' name='change' type='submit' value='Назначить'>";
-//            $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form></td>\r\n";
         } else {
             $structure .= "<td align='center'>$row[$i]</td>\r\n";
         }
@@ -168,21 +151,6 @@ while ($row = mysqli_fetch_row($result)) {
         $i++;
     }
 
-    if ($dbstatus == 'Отменен' || $dbstatus == 'Закрыт') {
-        $structure .= "<td align='center'></td>" . "\r\n";
-    } else {
-        $structure .= "<td align='center'><form method='post'>\r\n";
-        $structure .= "<select class='select' id='status' name='status' style='align-content: center'>\r\n";
-        $structure .= "<option value='0' style='font-size: 20%'>Выберите</option>\r\n<option value='В обработке'>В обработке</option>\r\n<option value='Подтвержден'>Подтвержден</option>\r\n";
-        $structure .= "<option value='Исполняется'>Исполняется</option>\r\n<option value='Готов к выдаче'>Готов к выдаче</option>\r\n<option value='Закрыт'>Закрыт</option>\r\n";
-        $structure .= "<option value='Отменен'>Отменен</option></select>\r\n<input formaction='orders.php' class='button' name='change' type='submit' value='Изменить'>";
-        $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form>\r\n";
-
-//        $structure .= "<form method='post'>\r\n";
-//        $structure .= "<select class='select' id='typo' name='typo' style='align-content: center'>\r\n";
-//        $structure .= "$typographers</select>\r\n<input formaction='orders.php' class='button' name='change' type='submit' value='Назначить'>";
-//        $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></form></td>\r\n";
-    }
     $structure .= "</tr>\r\n";
 }
 $structure .= "</tbody>\r\n";

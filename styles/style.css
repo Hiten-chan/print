@@ -229,13 +229,12 @@ footer {
 /*body {font:10px Verdana,Arial; margin:25px; background:#fff url(../images/bg.gif) repeat-x; color:#091f30}*/
 /*.sortable {width:980px; border-left:1px solid #e1ba87; border-top:1px solid #e1ba87; border-bottom:none; margin:0 auto 15px}*/
 
-.sortable th {background; text-align:left; color: rgb(255, 179, 75); border:1px solid #ffb34b; border-right:none}
-.sortable th h3 {font-size:10px; padding:6px 8px 8px}
-.sortable td {padding:4px 6px 6px; border-bottom:1px solid rgba(255, 222, 174, 0.17); border-right:1px solid rgba(255, 222, 174, 0.16)}
-.sortable .head h3 {background:url(../images/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
-.sortable .desc, .sortable .asc {background: rgba(255, 146, 44, 0.83)}
-.sortable .desc h3 {background:url(../images/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
-.sortable .asc h3 {background:url(../images/asc.gif) 7px  center no-repeat; cursor:pointer; padding-left:18px}
+/*.sortable th {background; text-align:left; color: rgb(255, 179, 75); border:1px solid #ffb34b; border-right:none}*/
+/*.sortable th h3 {font-size:10px; padding:6px 8px 8px}*/
+/*.sortable td {padding:4px 6px 6px; border-bottom:1px solid rgba(255, 222, 174, 0.17); border-right:1px solid rgba(255, 222, 174, 0.16)}*/
+/*.sortable .head h3 {background:url(../images/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}*/
+.sortable .desc, .sortable .asc {background: rgba(255, 161, 80, 0.16)
+}
 .sortable .head:hover, .sortable .desc:hover, .sortable .asc:hover {color: #ff7f21}
 .sortable .evenrow td {background:#fff}
 .sortable .oddrow td {background: rgba(255, 222, 174, 0.17)}
@@ -257,5 +256,5 @@ width: 30%;
 /*padding: 3px;*/
 /*margin: 0 6px 5px 0;*/
 outline: none;
-border: 1px solid #d9d9d9;
+border: 1px solid rgba(255, 131, 0, 0.43);
 }
