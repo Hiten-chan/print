@@ -63,12 +63,18 @@ while ($i < $total_cols) {
     if ($i == $urlindex) {
         $structure .= "<td align='center'><a href=$row[$i]>URL</a></td>\r\n";
     } else if ($i == $statusindex) {
-        if ($row[$i] == 'Отменен' || $row[$i] == 'Закрыт') {
-            $structure .= "<td align='center' style='color: rgba(255,0,4,0.93); font-weight: bolder'>$row[$i]</td>\r\n";
-        } elseif ($row[$i] == 'В обработке' || $row[$i] == 'Подтвержден') {
-            $structure .= "<td align='center' style='color: #ffaa45; font-weight: bold'>$row[$i]</td>\r\n";
-        } elseif ($row[$i] == 'Исполняется' || $row[$i] == 'Готов к выдаче') {
-            $structure .= "<td align='center' style='color: rgba(9,191,26,0.93); font-weight: bolder'>$row[$i]</td>\r\n";
+        if ($row[$i] == 'В обработке') {
+            $structure .= "<td align='center' style='color: #ffaa45; font-weight: bold'><span hidden='hidden'>1</span>$row[$i]</td>\r\n";
+        } elseif ($row[$i] == 'Подтвержден') {
+            $structure .= "<td align='center' style='color: #ffaa45; font-weight: bold'><span hidden='hidden'>2</span>$row[$i]</td>\r\n";
+        } elseif ($row[$i] == 'Исполняется') {
+            $structure .= "<td align='center' style='color: rgba(9,191,26,0.93); font-weight: bolder'><span hidden='hidden'>3</span>$row[$i]</td>\r\n";
+        } elseif ($row[$i] == 'Готов к выдаче') {
+            $structure .= "<td align='center' style='color: rgba(9,191,26,0.93); font-weight: bolder'><span hidden='hidden'>4</span>$row[$i]</td>\r\n";
+        } elseif ($row[$i] == 'Отменен') {
+            $structure .= "<td align='center' style='color: rgba(255,0,4,0.93); font-weight: bolder'><span hidden='hidden'>6</span>$row[$i]</td>\r\n";
+        } elseif ($row[$i] == 'Закрыт') {
+            $structure .= "<td align='center' style='color: rgba(255,0,4,0.93); font-weight: bolder'><span hidden='hidden'>5</span>$row[$i]</td>\r\n";
         } else {
             $structure .= "<td align='center'>$row[$i]</td>\r\n";
         }
@@ -103,12 +109,18 @@ while ($row = mysqli_fetch_row($result)) {
         if ($i == $urlindex) {
             $structure .= "<td align='center'><a href=$row[$i]>URL</a></td>\r\n";
         } else if ($i == $statusindex) {
-            if ($row[$i] == 'Отменен' || $row[$i] == 'Закрыт') {
-                $structure .= "<td align='center' style='color: rgba(255,0,4,0.93); font-weight: bolder'>$row[$i]</td>\r\n";
-            } elseif ($row[$i] == 'В обработке' || $row[$i] == 'Подтвержден') {
-                $structure .= "<td align='center' style='color: #ffaa45; font-weight: bold'>$row[$i]</td>\r\n";
-            } elseif ($row[$i] == 'Исполняется' || $row[$i] == 'Готов к выдаче') {
-                $structure .= "<td align='center' style='color: rgba(9,191,26,0.93); font-weight: bolder'>$row[$i]</td>\r\n";
+            if ($row[$i] == 'В обработке') {
+                $structure .= "<td align='center' style='color: #ffaa45; font-weight: bold'><span hidden='hidden'>1</span>$row[$i]</td>\r\n";
+            } elseif ($row[$i] == 'Подтвержден') {
+                $structure .= "<td align='center' style='color: #ffaa45; font-weight: bold'><span hidden='hidden'>2</span>$row[$i]</td>\r\n";
+            } elseif ($row[$i] == 'Исполняется') {
+                $structure .= "<td align='center' style='color: rgba(9,191,26,0.93); font-weight: bolder'><span hidden='hidden'>3</span>$row[$i]</td>\r\n";
+            } elseif ($row[$i] == 'Готов к выдаче') {
+                $structure .= "<td align='center' style='color: rgba(9,191,26,0.93); font-weight: bolder'><span hidden='hidden'>4</span>$row[$i]</td>\r\n";
+            } elseif ($row[$i] == 'Отменен') {
+                $structure .= "<td align='center' style='color: rgba(255,0,4,0.93); font-weight: bolder'><span hidden='hidden'>6</span>$row[$i]</td>\r\n";
+            } elseif ($row[$i] == 'Закрыт') {
+                $structure .= "<td align='center' style='color: rgba(255,0,4,0.93); font-weight: bolder'><span hidden='hidden'>5</span>$row[$i]</td>\r\n";
             } else {
                 $structure .= "<td align='center'>$row[$i]</td>\r\n";
             }
