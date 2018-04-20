@@ -56,6 +56,7 @@ include("menu_operator.php"); ?>
                     $structure .= "<td>$ruscolnames[$i]</td>\r\n";
                     $i++;
                 }
+                $structure .= "<td height='40px'></td>\r\n";
                 $structure .= "</tr>\r\n</thead>\r\n";
 
 
@@ -68,6 +69,7 @@ include("menu_operator.php"); ?>
                     $i++;
                 }
 
+                $structure .= "<td height='40px'></td>\r\n";
                 $structure .= "</tr>\r\n";
 
 
@@ -80,6 +82,7 @@ include("menu_operator.php"); ?>
                         $structure .= "<td>$row[$i]</td>\r\n";
                         $i++;
                     }
+                    $structure .= "<td height='40px'></td>\r\n";
                     $structure .= "</tr>\r\n";
                 }
                 $structure .= "</tbody>\r\n";

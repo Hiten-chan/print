@@ -1,6 +1,7 @@
 <?php require_once("../includes/connection.php"); ?>
 <?php
 $state1 = 'links';
+$state4 = 'links';
 $state2 = 'links';
 $state3 = 'links active';
 include("menu_admin.php"); ?>

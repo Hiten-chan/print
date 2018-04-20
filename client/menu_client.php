@@ -3,7 +3,10 @@
 <?php
 session_start();
 if(!isset($_SESSION["session_username"]))
-{header("location:../login.php");} ?>
+{header("location:../login.php");
+} elseif (mysqli_fetch_assoc(mysqli_query($link, "SELECT tag FROM users WHERE username = '" . $_SESSION["session_username"] . "'"))['tag'] != 'c') {
+    header("location:../login.php");
+} ?>
 
 <?php include("../includes/header_account.php"); ?>
 <div id="menu">

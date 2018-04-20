@@ -1,6 +1,7 @@
 <?php require_once("../includes/connection.php"); ?>
 <?php
 $state1 = 'links active';
+$state4 = 'links';
 $state2 = 'links';
 $state3 = 'links';
 
@@ -17,14 +18,39 @@ if (isset($_POST["save"])) {
     $tag = htmlspecialchars($_POST['tag']);
 
     if (mysqli_num_rows(mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'")) != 0) {
+
         if ($tag == 'a' || $tag == 'c' || $tag == 'o') {
-            $result = mysqli_query($link, "UPDATE users SET tag = '" . $tag . "' WHERE username = '" . $username . "'");
-            if ($result != 0) {
-                $message1 = '<span class = "good">Уровень доступа пользователя<br><big> ' . $username . ' </big>изменен</span></br>';
+
+            $dbtag = mysqli_fetch_assoc(mysqli_query($link, "SELECT tag FROM users WHERE username = '" . $username . "'"))['tag'];
+
+            if ($dbtag == 'a') {
+
+                $ntag = mysqli_num_rows(mysqli_query($link, "SELECT username FROM users WHERE tag = '" . $dbtag . "'"));
+                $dbusername = mysqli_fetch_assoc(mysqli_query($link, "SELECT username FROM users WHERE tag = '" . $dbtag . "'"))['username'];
+
+                if ($ntag == 1 and $dbusername == $username and $tag != 'a') {
+                    $message1 = '<span class = "bad">Вы последний из администраторов, вы не можете сами себя удалить ¯\_(ツ)_/¯</span></br>';
+                } else {
+                    $result = mysqli_query($link, "UPDATE users SET tag = '" . $tag . "' WHERE username = '" . $username . "'");
+                    if ($result != 0) {
+                        $message1 = '<span class = "good">Уровень доступа пользователя<br></span>' . '<span style="font-weight: bolder">' . $username . '</span>' . '<span class = "good"> изменен</span></br>';
+                    } else {
+                        $message1 = '<span class = "bad">Ошибка при работе с базой данных ¯\_(ツ)_/¯</span></br>';
+                        printf("Errormessage: %s\n", mysqli_error($link));
+                    }
+
+                }
             } else {
-                $message1 = '<span class = "bad">Ошибка при работе с базой данных ¯\_(ツ)_/¯</span></br>';
-                printf("Errormessage: %s\n", mysqli_error($link));
+
+                $result = mysqli_query($link, "UPDATE users SET tag = '" . $tag . "' WHERE username = '" . $username . "'");
+                if ($result != 0) {
+                    $message1 = '<span class = "good">Уровень доступа пользователя<br></span>' . '<span style="font-weight: bolder">' . $username . '</span>' . '<span class = "good"> изменен</span></br>';
+                } else {
+                    $message1 = '<span class = "bad">Ошибка при работе с базой данных ¯\_(ツ)_/¯</span></br>';
+                    printf("Errormessage: %s\n", mysqli_error($link));
+                }
             }
+
         } else {
             $message1 = '<span class = "bad">Указан несуществующий уровень доступа ¯\_(ツ)_/¯</span></br>';
         }
@@ -32,6 +58,7 @@ if (isset($_POST["save"])) {
         $message1 = '<span class = "bad">Пользователь с таким логином не найден ¯\_(ツ)_/¯</span></br>';
     }
 }
+
 
 if (isset($_POST["find_admin"])) {
     $query_admin = mysqli_query($link, "SELECT * FROM users WHERE tag = 'a'");

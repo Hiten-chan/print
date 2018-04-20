@@ -66,7 +66,7 @@ while ($i < $total_cols) {
     }
 }
 
-$structure .= "<td align='center'><form method='post' action=''><input type='text' name='idnote' id='idnote' value=$id_note hidden='hidden'><button name='delete' id='delete' type='submit' style='border: none; cursor: pointer'><image src='../images/delete1.png'></image></button></form></td>\r\n";
+$structure .= "<td align='center'><form method='post' action=''><input type='text' name='idnote' id='idnote' value=$id_note hidden='hidden'><button name='delete' id='delete' type='submit' style='border: none; cursor: pointer; background-color: transparent'><image src='../images/delete1.png'></image></button></form></td>\r\n";
 $structure .= "</tr>\r\n";
 
 
@@ -84,7 +84,7 @@ while ($row = mysqli_fetch_row($result)) {
             $i++;
         }
     }
-    $structure .= "<td align='center'><form method='post' action=''><input type='text' name='idnote' id='idnote' value=$id_note hidden='hidden'><button name='delete' id='delete' type='submit' style='border: none; cursor: pointer'><image src='../images/delete1.png'></image></button></form></td>\r\n";
+    $structure .= "<td align='center'><form method='post' action=''><input type='text' name='idnote' id='idnote' value=$id_note hidden='hidden'><button name='delete' id='delete' type='submit' style='border: none; cursor: pointer; background-color: transparent'><image src='../images/delete1.png'></image></button></form></td>\r\n";
     $structure .= "</tr>\r\n";
 
 }

@@ -215,9 +215,40 @@ input::-webkit-inner-spin-button {
 }
 
 
-#delete {
-    background: url('../images/delete.png') no-repeat top;
+.seltypo {
+    /*padding: 9px;*/
+    /*border: solid 1px #000000;*/
+    outline: 0;
+    /*background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, rgba(255, 160, 76, 0.53)), to(#FFFFFF));*/
+    /*background: -moz-linear-gradient(top, #FFFFFF, rgba(255, 160, 76, 0.52) 1px, #FFFFFF 25px);*/
+    /*box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;*/
+    /*-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;*/
+    /*-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;*/
+    height:200px;
+    width:100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #fbfbfb;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0px;
+    margin: 0 6px 5px 0;
+    outline: none;
+    border: 1px solid #d9d9d9;
 }
+
+.seltypo option:hover {
+    box-shadow: 0 0 10px 100px rgba(97, 164, 255, 0.32) inset;
+}
+
+/*option:active {*/
+    /*background-color: #ffa500;*/
+    /*box-shadow: 0 0 10px 100px orange inset;*/
+/*}*/
+
+
+
+
 
 
 /* ПОДВАЛ */
