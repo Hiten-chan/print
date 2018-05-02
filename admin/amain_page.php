@@ -8,122 +8,96 @@ $state3 = 'links';
 include("menu_admin.php"); ?>
 
 <?php
+$message = ''; $message1 = '';
 
-$message = '';
-$message1 = '';
+if (isset($_POST["register_oper"])) {
 
+    $fullname = htmlspecialchars($_POST['fullname']);
+    $email = htmlspecialchars($_POST['email']);
+    $username = htmlspecialchars($_POST['username']);
+    $password = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT);
 
-if (isset($_POST["save"])) {
-    $username = htmlspecialchars($_POST['login']);
-    $tag = htmlspecialchars($_POST['tag']);
+    if (!empty($fullname) && !empty($email) && !empty($username) && !empty($password)) {
 
-    if (mysqli_num_rows(mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'")) != 0) {
+        $query1 = mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'");
+        $numrows1 = mysqli_num_rows($query1);
 
-        if ($tag == 'a' || $tag == 'c' || $tag == 'o') {
+        $query2 = mysqli_query($link, "SELECT * FROM users WHERE email = '" . $email . "'");
+        $numrows2 = mysqli_num_rows($query2);
 
-            $dbtag = mysqli_fetch_assoc(mysqli_query($link, "SELECT tag FROM users WHERE username = '" . $username . "'"))['tag'];
-
-            if ($dbtag == 'a') {
-
-                $ntag = mysqli_num_rows(mysqli_query($link, "SELECT username FROM users WHERE tag = '" . $dbtag . "'"));
-                $dbusername = mysqli_fetch_assoc(mysqli_query($link, "SELECT username FROM users WHERE tag = '" . $dbtag . "'"))['username'];
-
-                if ($ntag == 1 and $dbusername == $username and $tag != 'a') {
-                    $message1 = '<span class = "bad">Вы последний из администраторов, вы не можете сами себя удалить ¯\_(ツ)_/¯</span></br>';
-                } else {
-                    $result = mysqli_query($link, "UPDATE users SET tag = '" . $tag . "' WHERE username = '" . $username . "'");
-                    if ($result != 0) {
-                        $message1 = '<span class = "good">Уровень доступа пользователя<br></span>' . '<span style="font-weight: bolder">' . $username . '</span>' . '<span class = "good"> изменен</span></br>';
-                    } else {
-                        $message1 = '<span class = "bad">Ошибка при работе с базой данных ¯\_(ツ)_/¯</span></br>';
-                        printf("Errormessage: %s\n", mysqli_error($link));
-                    }
-
-                }
-            } else {
-
-                $result = mysqli_query($link, "UPDATE users SET tag = '" . $tag . "' WHERE username = '" . $username . "'");
-                if ($result != 0) {
-                    $message1 = '<span class = "good">Уровень доступа пользователя<br></span>' . '<span style="font-weight: bolder">' . $username . '</span>' . '<span class = "good"> изменен</span></br>';
-                } else {
-                    $message1 = '<span class = "bad">Ошибка при работе с базой данных ¯\_(ツ)_/¯</span></br>';
-                    printf("Errormessage: %s\n", mysqli_error($link));
-                }
-            }
+        if ($numrows2 != 0) {
+            $message = '<span class = "bad">Такой email уже зарегистрирован в системе!</span></br>';
+        } elseif ($numrows1 != 0) {
+            $message = '<span class = "bad">Имя пользователя уже занято!</span></br>';
 
         } else {
-            $message1 = '<span class = "bad">Указан несуществующий уровень доступа ¯\_(ツ)_/¯</span></br>';
+            $sql = "INSERT INTO users (fullname, email, username, password, tag) VALUES ('" . $fullname . "','" . $email . "', '" . $username . "', '" . $password . "', 'o')";
+            $result = mysqli_query($link, $sql);
+
+            if ($result) {
+                $message = '<span class = "good">Аккаунт оператора успешно создан!</span></br>';
+
+            } else {
+                $message = '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+                printf("Errormessage: %s\n", mysqli_error($link));
+            }
         }
     } else {
-        $message1 = '<span class = "bad">Пользователь с таким логином не найден ¯\_(ツ)_/¯</span></br>';
+        $message = '<span class = "bad">Все поля обязательны для заполнения!</span></br>';
     }
-}
-
-
-if (isset($_POST["find_admin"])) {
-    $query_admin = mysqli_query($link, "SELECT * FROM users WHERE tag = 'a'");
-    $row = mysqli_fetch_array($query_admin);
-    do {
-        $message .= $row['username'] . "\r\n";
-    } while ($row = mysqli_fetch_array($query_admin));
 }
 
 if (isset($_POST["find_oper"])) {
     $query_oper = mysqli_query($link, "SELECT * FROM users WHERE tag = 'o'");
     $row = mysqli_fetch_array($query_oper);
     do {
-        $message .= $row['username'] . "\r\n";
+        $message1 .= "<option value=" . $row['user_id'] . ">(ID: " . $row['user_id'] . ") " . $row['username'] . "</option>" . "\r\n";
     } while ($row = mysqli_fetch_array($query_oper));
 }
 ?>
 
 
-
 <?php include("../includes/header_account.php"); ?>
 <div id="csetting" class="content" style="display: block">
-    <div class="container settings">
-        <center>
-            <div id="settings">
-                <h1>Администрирование</h1>
-                <form id="settingsform" method="post" name="settingsform">
-                    <h2><label>Изменение уровня доступа пользователей</h2>
-                    <?php echo $message1; ?>
-                    <table style="table-layout: fixed">
-                        <tr>
-                            <td width="50%" align="center"><label>Логин</label></td>
-                            <td width="50%" align="center"><label>Уровень доступа</label></td>
-                        </tr>
-                        <tr>
-                            <td align="center"><input class="input" id="ctag" name="login" type="text"></td>
-                            <td align="center"><input class="input" id="ctag" name="tag" type="text"></td>
-                        </tr>
-                        <tr>
-                            <td><label style="float: left">Уровни доступа:</label>
-                                <label style="float: left"><b>o</b> - Оператор</label><br>
-                                <label style="float: left"><b>a</b> - Администратор</label><br>
-                                <label style="float: left"><b>c</b> - Клиент сервиса</label><br></td>
-                            <td><p class="submit"><input class="button" id="save" name="save" type="submit"
-                                                         value=" Сохранить изменения "></p></td>
-                        </tr>
-                    </table>
+    <center class="container settings">
+        <h1>Создание аккаунта оператора</h1>
+        <center><?php echo $message; ?></center>
+        <form id="registerform" method="post" name="registerform">
+            <p><label for="user_fullname">Полное имя<br>
+                    <input class="input" id="fullname" name="fullname" size="32" type="text" value=""></label>
+            </p>
+            <p><label for="user_email">E-mail<br>
+                    <input class="input" id="email" name="email" size="32" type="email" value=""></label></p>
+            <p><label for="user_login">Логин<br>
+                    <input class="input" id="username" name="username" size="20" type="text" value=""></label>
+            </p>
+            <p><label for="user_pass">Пароль<br>
+                    <input class="input" id="password" name="password" size="32" type="password"
+                           value=""></label>
+            </p>
+            <p class="submit"><input class="button" id="register_oper" name="register_oper" type="submit"
+                                     value="Создать"></p>
+        </form>
 
-                    <h2><label>___________________________________________________</h2>
-                    <table>
-                        <tr>
-                            <td width="50%"><p class="submit"><input class="button" id="save"
-                                                                     name="find_oper" type="submit"
-                                                                     style="white-space: pre-line"
-                                                                     value="Вывести список операторов"></p></td>
-                            <td width="50%"><p class="submit"><input class="button" id="save" name="find_admin"
-                                                                     type="submit"
-                                                                     style="white-space: pre-line"
-                                                                     value="Вывести список администраров"></p></td>
-                        </tr>
-                    </table>
-                    <textarea rows="6" style="resize: vertical; width: 100%; min-height: 10%"
-                              readonly><?php echo $message; ?></textarea>
-                </form>
-            </div>
-        </center>
+        <center><h2><label>___________________________________________________</h2></center>
+
+        <form method="post">
+            <select class="seltypo" name="oper_id" size="3" style="font-size: 12pt; height: 60px">
+                <?php echo $message1 ?>
+            </select>
+
+
+            <table width="100%">
+                <tr>
+                    <td width="50%" style="align-content: center"><p class="submit"><input class="button" id="find_oper"
+                                                                                           name="find_oper"
+                                                                                           type="submit"
+                                                                                           style="white-space: pre-line"
+                                                                                           value="Вывести Cписок Операторов">
+                        </p></td>
+                </tr>
+            </table>
+        </form>
+
     </div>
 </div>

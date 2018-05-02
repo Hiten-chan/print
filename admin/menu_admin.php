@@ -12,7 +12,7 @@ if (!isset($_SESSION["session_username"])) {
 <div id="menu">
     <!-- Меню -->
     <div class="tab">
-        <button class="<?php echo $state1 ?>" onclick="location.href='amain_page.php'">Администрирование</button>
+        <button class="<?php echo $state1 ?>" onclick="location.href='amain_page.php'">Операторы</button>
         <button class="<?php echo $state4 ?>" onclick="location.href='add_typos.php'">Типографы</button>
         <button class="<?php echo $state2 ?>" onclick="location.href='asettings.php'">Настройки аккаунта</button>
         <button class="<?php echo $state3 ?>" onclick="location.href='achangepass.php'">Сменить пароль</button>

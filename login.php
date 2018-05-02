@@ -79,7 +79,7 @@ if (isset($_POST["login"])) {
                         <input class="input" id="password" name="password" size="20" type="password"></label></p>
                 <p class="submit"><input class="button" name="login" type="submit" value="Вход"></p>
                 <p class="regtext">Еще не зарегистрированы? <br><a href="register.php">Регистрация!</a></p>
-                <p class="regtext">Вы что, забыли пароль? <br><a href="restore.php">Восстановить пароль!</a></p>
+                <p class="regtext">Забыли пароль? <br><a href="restore.php">Восстановить пароль!</a></p>
             </form>
         </div>
     </div>

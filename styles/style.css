@@ -2,7 +2,7 @@
 body {
     background: #efefef;
     font-family: 'Open Sans', sans-serif;
-    color: #777;
+    color: #000000;
 }
 
 a {
@@ -35,7 +35,7 @@ span {
 
 .error {
     margin: 40px auto 0;
-    border: 1px solid #777;
+    border: 1px solid #000000;
     padding: 3px;
     color: #fff;
     text-align: center;
@@ -46,7 +46,7 @@ span {
 .regtext {
     font-size: 13px;
     margin-top: 26px;
-    color: #777;
+    color: #000000;
 }
 
 
@@ -77,10 +77,10 @@ span {
 }
 
 .container_order_history h1 {
-    color: #777;
+    color: #000000;
     text-align: center;
     font-weight: 300;
-    border: 1px dashed #777;
+    border: 1px dashed #000000;
     margin-top: 13px;
 }
 
@@ -92,7 +92,7 @@ span {
     padding: 1px;
     margin: 0 6px 5px 0;
     outline: none;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #000000;
 
 }
 
@@ -107,15 +107,15 @@ span {
 }
 
 .container h1 {
-    color: #777;
+    color: #000000;
     text-align: center;
     font-weight: 300;
-    border: 1px dashed #777;
+    border: 1px dashed #000000;
     margin-top: 13px;
 }
 
 .container label {
-    color: #777;
+    color: #000000;
     font-size: 14px;
 }
 
@@ -133,7 +133,7 @@ span {
     padding: 0px;
     margin: 0 6px 5px 0;
     outline: none;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #000000;
 }
 
 .container form .input:focus {
@@ -151,7 +151,7 @@ span {
     padding: 3px;
     margin: 0 6px 5px 0;
     outline: none;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #000000;
 
 }
 
@@ -224,7 +224,7 @@ input::-webkit-inner-spin-button {
     /*box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;*/
     /*-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;*/
     /*-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;*/
-    height:200px;
+    height:100px;
     width:100%;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -234,7 +234,7 @@ input::-webkit-inner-spin-button {
     padding: 0px;
     margin: 0 6px 5px 0;
     outline: none;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #000000;
 }
 
 .seltypo option:hover {

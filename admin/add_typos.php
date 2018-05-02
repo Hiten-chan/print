@@ -9,7 +9,7 @@ include("menu_admin.php"); ?>
 
 <?php
 
-$message = '';
+$message = '<option selected value="0" hidden="hidden"></option>\r\n';
 $message1 = '';
 
 
@@ -26,20 +26,11 @@ if (isset($_POST["add"])) {
     }
 }
 
-
-//if (isset($_POST["find_typo"])) {
-//    $query_typo = mysqli_query($link, "SELECT * FROM typographers");
-//    $row = mysqli_fetch_array($query_typo);
-//    do {
-//        $message .= "(ID: " . $row['typo_id'] . ") " . $row['fullname'] . "\r\n";
-//    } while ($row = mysqli_fetch_array($query_typo));
-//}
-
 if (isset($_POST["find_typo"])) {
     $query_typo = mysqli_query($link, "SELECT * FROM typographers");
     $row = mysqli_fetch_array($query_typo);
     do {
-        $message .= "<option value=" . $row['typo_id'] . ">(ID: " . $row['typo_id'] . ") " . $row['fullname'] . "</option>" . "\r\n";
+        $message .= "<option value=" . $row['typo_id'] . ">(ID: " . $row['typo_id'] . ") " . $row['fullname'] . "</option>\r\n";
     } while ($row = mysqli_fetch_array($query_typo));
 }
 
@@ -48,19 +39,30 @@ if (isset($_POST["delete"])) {
 
     $typo_id = htmlspecialchars($_POST['typo_id']);
 
+    if ($typo_id != '0') {
+
     $result = mysqli_query($link, "DELETE FROM typographers WHERE typo_id = '" . $typo_id . "'");
 
     $query_typo = mysqli_query($link, "SELECT * FROM typographers");
     $row = mysqli_fetch_array($query_typo);
     do {
-        $message .= "<option value=" . $row['typo_id'] . ">(ID: " . $row['typo_id'] . ") " . $row['fullname'] . "</option>" . "\r\n";
+        $message .= "<option value=" . $row['typo_id'] . ">(ID: " . $row['typo_id'] . ") " . $row['fullname'] . "</option>\r\n";
     } while ($row = mysqli_fetch_array($query_typo));
 
     if ($result != 0) {
         $message1 = '<span class = "good">Типограф удален</span></br>';
     } else {
         printf("Errormessage: %s\n", mysqli_error($link));
+    } }
+
+    else {
+        $query_typo = mysqli_query($link, "SELECT * FROM typographers");
+        $row = mysqli_fetch_array($query_typo);
+        do {
+            $message .= "<option value=" . $row['typo_id'] . ">(ID: " . $row['typo_id'] . ") " . $row['fullname'] . "</option>\r\n";
+        } while ($row = mysqli_fetch_array($query_typo));
     }
+
 }
 
 ?>
@@ -96,28 +98,31 @@ if (isset($_POST["delete"])) {
                         </tr>
                     </table>
 
-                <h2><label>___________________________________________________</h2>
+                    <h2><label>___________________________________________________</h2>
 
-                <select class="seltypo" name="typo_id" size="1000" style="font-size: 12pt">
-                    <?php echo $message ?>
-                </select>
+                    <select class="seltypo" name="typo_id" size="1000" style="font-size: 12pt">
+                        <?php echo $message ?>
+                    </select>
 
-                <!--                    <textarea rows="6" style="resize: vertical; width: 100%; min-height: 10%"-->
-                <!--                              readonly>--><?php //echo $message; ?><!--</textarea>-->
+                    <!--                    <textarea rows="6" style="resize: vertical; width: 100%; min-height: 10%"-->
+                    <!--                              readonly>--><?php //echo $message; ?><!--</textarea>-->
 
 
-                <table width="100%">
-                    <tr>
-                        <td width="50%" style="align-content: center"><p class="submit"><input class="button" id="find_typo"
-                                                                 name="find_typo" type="submit"
-                                                                 style="white-space: pre-line"
-                                                                 value="Вывести Cписок типографов"></p></td>
-                        <td width="50%"><p class="submit"><input class="button" id="delete" name="delete"
-                                                                 type="submit"
-                                                                 style="white-space: pre-line"
-                                                                 value="Удалить выбранного типографа"></p></td>
-                    </tr>
-                </table>
+                    <table width="100%">
+                        <tr>
+                            <td width="50%" style="align-content: center"><p class="submit"><input class="button"
+                                                                                                   id="find_typo"
+                                                                                                   name="find_typo"
+                                                                                                   type="submit"
+                                                                                                   style="white-space: pre-line"
+                                                                                                   value="Вывести Cписок типографов">
+                                </p></td>
+                            <td width="50%"><p class="submit"><input class="button" id="delete" name="delete"
+                                                                     type="submit"
+                                                                     style="white-space: pre-line"
+                                                                     value="Удалить выбранного типографа"></p></td>
+                        </tr>
+                    </table>
                 </form>
             </div>
         </center>
