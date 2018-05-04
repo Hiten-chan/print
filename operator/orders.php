@@ -89,6 +89,7 @@ $message2 = '';
                 }
                 ?>
                 <span><?php echo $message2; ?></span>
+                <span><?php echo $message1; ?></span>
 
                 <?php
                 if ($_SESSION['$pagesfdis'] != 3) {
@@ -96,7 +97,7 @@ $message2 = '';
                     $nav = str_replace("<option value='$pagesfdis'", "<option value='$pagesfdis' selected", $nav);
                 } ?>
 
-                <table align="center" width="100%" border="0" style="table-layout: fixed; align-content: center">
+                <table align="center" width="100%" border="0" style="align-content: center">
                     <tr>
                         <td width="15%" style="padding: 0% 0% 0% 1%"><?php echo $nav; ?>
 
@@ -108,10 +109,10 @@ $message2 = '';
                             align="center"
                             style="vertical-align: top; font-size: large"><?php echo Navigation($_SESSION['session_opage'], $PagesCount); ?>
                             </td>
-                        <td width="33%" align="center" style="vertical-align: top; padding: 0% 1% 0% 9%"><input
+                        <td width="33%" align="center" style="vertical-align: top; padding: 0% 0% 0% 9%"><input
                                     style='width: 80%; height: 70%' form="change_st"
                                     formaction='orders.php' class='button' name='change'
-                                    type='submit' value='Сохранить изменения'><br><span><?php echo $message1; ?></span></td>
+                                    type='submit' value='Сохранить изменения'></td>
                     </tr>
                 </table>
 
