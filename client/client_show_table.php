@@ -4,7 +4,7 @@ $structure = '';
 $res = mysqli_query($dbname, "SHOW COLUMNS FROM $tablename");
 $colnames = '';
 while ($col = mysqli_fetch_row($res)) {
-    if ($col[0] != 'user_id') {
+    if ($col[0] != 'user_id' and $col[0] != 'typo_id') {
         $colnames .= $col[0] . ',';
     }
 }
@@ -18,7 +18,7 @@ $total_rows = mysqli_num_rows($result);
 
 $colnames = explode(',', $colnames);
 
-$ruscolnames = '№ Заказа,Тип,Бумага,Размер,Кол-во,Дата создания,Срок исполнения,URL,Цена (₽),Типограф,Статус';
+$ruscolnames = '№ Заказа,Тип,Бумага,Размер,Кол-во,Дата создания,Срок исполнения,URL,Цена (₽),Статус';
 $ruscolnames = explode(',', $ruscolnames);
 
 
