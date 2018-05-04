@@ -98,7 +98,7 @@ $message2 = '';
 
                 <table align="center" width="100%" border="0" style="table-layout: fixed; align-content: center">
                     <tr>
-                        <td width="15%" style="padding: 0% 2% 0% 1%"><?php echo $nav; ?>
+                        <td width="15%" style="padding: 0% 0% 0% 1%"><?php echo $nav; ?>
 
                         </td>
                         <td width="15%" style="vertical-align: top; padding: 0% 0% 0% 1%">Страница <span

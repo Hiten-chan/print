@@ -7,7 +7,7 @@ if (isset($_GET['page'])) {
     $_SESSION['session_opage'] = $_GET['page'];
 }
 
-$nav = "<form method='post' name='pagedis' id='pagedis'><select class='select' id='showpages' name='showpages' form='pagedis' style='align-content: center' onchange='this.form.submit()'>\r\n";
+$nav = "<form method='post' name='pagedis' id='pagedis'><select class='select' id='showpages' name='showpages' form='pagedis' style='align-content: center; width: 100%' onchange='this.form.submit()'>\r\n";
 $nav .= "<option value='3'>3</option>\r\n";
 $nav .= "<option value='5'>5</option>\r\n";
 $nav .= "<option value='10'>10</option>\r\n";
