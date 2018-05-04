@@ -12,6 +12,8 @@ include("menu_operator.php");
 
 $dbname = $link;
 $tablename = 'orders';
+$message1 = '';
+$message2 = '';
 ?>
 
 <div id="orders" class="content" style="display: block">
@@ -19,86 +21,101 @@ $tablename = 'orders';
         <center>
             <div id="settings">
                 <h1>Работа с заказами</h1>
-                <?php include("operator_show_table.php");
+                <?php include("oper_show_table.php");
+                include("navigation.php");
+
 
                 if (isset($_POST['change'])) {
 
-                    $status = htmlspecialchars($_POST['status']);
-                    $id_order = htmlspecialchars($_POST['idorder']);
-                    $dbstatus = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM orders WHERE order_id = '" . $id_order . "'"))['status'];
 
-                    if ($status != '0' and $status != $dbstatus) {
+                    $ides = [];
+                    $statuses = [];
+                    $change_typos = [];
 
-                        $result = mysqli_query($link, "UPDATE orders SET `status` = '" . $status . "' WHERE order_id = '" . $id_order . "'");
+                    // Получение массива измененных статусов
+                    foreach ($_POST as $key => $value) {
 
+                        if (substr_count($key, 'status') > 0 and $value != '0') {
+                            $order_id = substr($key, 6);
+                            $statuses[$order_id] = $value;
 
-                        if ($result != 0) {
-                            include("operator_show_table.php");
+                            $dbstatus = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM orders WHERE order_id = '" . $order_id . "'"))['status'];
 
-                            $user_id = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM orders WHERE order_id = '" . $id_order . "'"))['user_id'];
-                            $cstatus = '"'.$status.'"';
-                            $sql1 = "INSERT INTO notifications (user_id, type, text) VALUES ('" . $user_id . "', 'c', 'Статус заказа №$id_order изменен на ". $cstatus ."')";
-                            $result1 = mysqli_query($link, $sql1);
+                            if ($value != $dbstatus) {
+                                // Изменение статуса
+                                $result1 = mysqli_query($link, "UPDATE orders SET `status` = '" . $value . "' WHERE order_id = '" . $order_id . "'");
 
-                            if ($result1 == '0') {
-                                printf("Errormessage: %s\n", mysqli_error($link));
+                                if ($result1 != 0) {
+                                    // Отправка нотификации клиенту
+                                    $user_id = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM orders WHERE order_id = '" . $order_id . "'"))['user_id'];
+                                    $cstatus = '"' . $value . '"';
+                                    $sql1 = "INSERT INTO notifications (user_id, type, text) VALUES ('" . $user_id . "', 'c', 'Статус заказа №$order_id изменен на " . $cstatus . "')";
+                                    $result1 = mysqli_query($link, $sql1);
+
+                                    if ($result1 == '0') {
+                                        printf("Errormessage: %s\n", mysqli_error($link));
+                                        $message2 .= '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+                                    }
+
+                                } else {
+                                    printf("Errormessage: %s\n", mysqli_error($link));
+                                    $message2 .= '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+                                }
                             }
 
-                        } else {
-                            printf("Errormessage: %s\n", mysqli_error($link));
+
+                        } elseif (substr_count($key, 'typo') > 0 and $value != '0') {
+                            $change_typos[substr($key, 4)] = $value;
+
+                            $result2 = mysqli_query($link, "UPDATE orders SET `typo_id` = '" . $value . "' WHERE order_id = '" . substr($key, 4) . "'");
+
+                            if ($result2 == 0) {
+                                printf("Errormessage: %s\n", mysqli_error($link));
+                                $message2 .= '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+                            }
                         }
                     }
 
-                }
-
-
-                if (isset($_POST['changetypo'])) {
-
-                    $typo_id = htmlspecialchars($_POST['typo']);
-                    $id_order = htmlspecialchars($_POST['idorder']);
-
-                    if ($typo_id != '0') {
-
-                        $result = mysqli_query($link, "UPDATE orders SET `typo_id` = '" . $typo_id . "' WHERE order_id = '" . $id_order . "'");
-
-                        if ($result != 0) {
-                            include("operator_show_table.php");
-                        } else {
-                            printf("Errormessage: %s\n", mysqli_error($link));
-                        }
+                    if ($message2 == '') {
+                        $message1 = '<span class = "good">Изменения успешно сохранены</span></br>';
+                        include("oper_show_table.php");
                     }
 
+//                    print_r($statuses);
+//                    echo '<br>';
+//
+//                    print_r($change_typos);
+//                    echo '<br>';
                 }
                 ?>
+                <span><?php echo $message2; ?></span>
+
+                <?php
+                if ($_SESSION['$pagesfdis'] != 3) {
+                    $pagesfdis = $_SESSION['$pagesfdis'];
+                    $nav = str_replace("<option value='$pagesfdis'", "<option value='$pagesfdis' selected", $nav);
+                } ?>
+
+                <table align="center" width="100%" border="0" style="table-layout: fixed; align-content: center">
+                    <tr>
+                        <td width="15%" style="padding: 0% 2% 0% 1%"><?php echo $nav; ?>
+
+                        </td>
+                        <td width="15%" style="vertical-align: top; padding: 0% 0% 0% 1%">Страница <span
+                                    id="currentpage"><?php echo $_SESSION['session_opage']; ?></span> из
+                            <span id="pagelimit"><?php echo $PagesCount; ?></span></td>
+                        <td width="33%"
+                            align="center"
+                            style="vertical-align: top; font-size: large"><?php echo Navigation($_SESSION['session_opage'], $PagesCount); ?>
+                            </td>
+                        <td width="33%" align="center" style="vertical-align: top; padding: 0% 1% 0% 9%"><input
+                                    style='width: 80%; height: 70%' form="change_st"
+                                    formaction='orders.php' class='button' name='change'
+                                    type='submit' value='Сохранить изменения'><br><span><?php echo $message1; ?></span></td>
+                    </tr>
+                </table>
 
                 <?php echo $structure; ?>
-
-                <div id="controls">
-                    <div class="perpage" id="perpage">
-                        <select id="perpage_select" onchange="sorter.size(this.value)">
-                            <option value="5">5</option>
-                            <option value="10" selected="selected">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        <!--                        <span>Количество записей на странице</span>-->
-                    </div>
-                    <div id="navigation">
-                        <img src="../images/first.png" width="16" height="16" alt="First Page"
-                             onclick="sorter.move(-1,true)"/>
-                        <img src="../images/previous.png" width="16" height="16" alt="First Page"
-                             onclick="sorter.move(-1)"/>
-                        <img src="../images/next.png" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                        <img src="../images/last.png" width="16" height="16" alt="Last Page"
-                             onclick="sorter.move(1,true)"/>
-                    </div>
-                    <div id="text">Страница <span id="currentpage"></span> из <span id="pagelimit"></span></div>
-                </div>
-
-                <script type="text/javascript" src="../scripts/diff_display.js"></script>
-                <script type="text/javascript" src="../scripts/sort_odisplay.js"></script>
-
             </div>
         </center>
     </div>

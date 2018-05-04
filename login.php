@@ -44,6 +44,8 @@ if (isset($_POST["login"])) {
                 if ($tag == 'c') {
                     header("Location: client/client.php");
                 } elseif ($tag == 'o') {
+                    $_SESSION['session_opage'] = 1;
+                    $_SESSION['$pagesfdis'] = 3;
                     header("Location: operator/operator.php");
                 } elseif ($tag == 'a') {
                     header("Location: admin/admin.php");

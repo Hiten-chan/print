@@ -50,7 +50,6 @@ $tablename = 'orders';
                             <option value="50">50</option>
                             <option value="100">100</option>
                         </select>
-<!--                        <span>Количество записей на странице</span>-->
                     </div>
                     <div id="navigation">
                         <img src="../images/first.png" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)" />

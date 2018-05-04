@@ -294,3 +294,25 @@ width: 30%;
 outline: none;
 border: 1px solid rgba(255, 131, 0, 0.43);
 }
+
+#showpages {
+    background: #fbfbfb;
+    font-size: 13px;
+    width: 40%;
+    /*padding: 3px;*/
+    /*margin: 0 6px 5px 0;*/
+    outline: none;
+    border: 1px solid rgba(255, 131, 0, 0.43);
+}
+
+#showpages select {float:left; font-size:11px}
+
+/*a:visited {*/
+    /*color: #2f34ff; !* Цвет ссылки *!*/
+/*}*/
+
+.selected {
+    font-weight: bold; /* Жирное начертание */
+    color: #ff5113; /* Цвет ссылки */
+}
+

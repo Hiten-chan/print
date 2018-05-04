@@ -9,6 +9,7 @@ include("menu_operator.php"); ?>
 
 <?php
 $username = $_SESSION['session_username'];
+$_SESSION['session_opage'] = 1;
 $message = '';
 $que = '';
 $newp = '';

@@ -12,6 +12,7 @@ include("menu_operator.php");
 
 $dbname = $link;
 $tablename = 'orders';
+$_SESSION['session_opage'] = 1;
 ?>
 
 <div id="orders" class="content" style="display: block">

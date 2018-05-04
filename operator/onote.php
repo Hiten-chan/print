@@ -6,7 +6,8 @@ $state5 = 'links';
 $state2 = 'links active';
 $state3 = 'links';
 $state4 = 'links';
-include("menu_operator.php"); ?>
+include("menu_operator.php");
+$_SESSION['session_opage'] = 1;?>
 
 <?php include("../includes/header_account.php"); ?>
 <div id="orders" class="content" style="display: block">
