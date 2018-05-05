@@ -129,10 +129,11 @@ if (isset($_POST["save"])) {
         $deadline = date('Y-m-d', strtotime('+2 days'));
     }
 
+    $date = date('Y-m-d');
 
     //Добавление нового заказа в таблицу
     $user_id = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM users WHERE username = '" . $username . "'"))['user_id'];
-    $sql = "INSERT INTO orders (user_id, type, material, size, amount, url, cost, deadline) VALUES ('" . $user_id . "','" . $srow1['title'] . "', '" . $srow3['title'] . "', '" . $srow2['title'] . "', '" . $pcount . "', '" . $imageurl . "',  '" . $price . "',   '" . $deadline . "')";
+    $sql = "INSERT INTO orders (user_id, type, material, size, amount, url, cost, deadline, date) VALUES ('" . $user_id . "','" . $srow1['title'] . "', '" . $srow3['title'] . "', '" . $srow2['title'] . "', '" . $pcount . "', '" . $imageurl . "',  '" . $price . "',   '" . $deadline . "',   '" . $date . "')";
     $result = mysqli_query($link, $sql);
 
     if ($result) {

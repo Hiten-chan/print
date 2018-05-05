@@ -37,7 +37,7 @@ $total_rows = mysqli_num_rows($result);
 
 $colnames = explode(',', $colnames);
 
-$ruscolnames = '№ Заказа,ID клиента,Тип,Бумага,Формат,Кол-во,Дата<br>создания,Срок исполнения,URL,Цена (₽),ID Типографа,Статус';
+$ruscolnames = '№ Заказа,ID клиента,Тип,Бумага,Формат,Кол-во,Дата <br>создания,Срок <br>исполнения,URL,Цена (₽),ID Типографа,Статус';
 $ruscolnames = explode(',', $ruscolnames);
 
 
@@ -74,7 +74,9 @@ do {
 
 
 //Формируем название таблицы
-$structure .= "<form method='post' id='change_st'><table id='table' class='sortable' width='100%' border='1' cellspacing='1' cellpadding='1' align='center' style='table-layout: auto; overflow: scroll'>\r\n";
+$structure .= "<form method='post' id='change_st'>";
+$structure .= "";
+$structure .= "<table id='tech' class='table table-small-font table-bordered table-striped' width='100%' border='1' cellspacing='1' cellpadding='1' align='center' style='table-layout: auto; overflow: scroll'>\r\n";
 //$structure .= "<tr><td colspan=$width_title align=center style='font-weight: bold'>Ваши заказы</td></tr>" . "\r\n";
 
 
@@ -83,16 +85,11 @@ $structure .= "<thead style='font-weight: 600'>\r\n<tr>\r\n";
 
 $i = 0;
 while ($i < count($ruscolnames)) {
-
-    if ($i == $costindex || $i == $user_idindex || $i == $order_idindex || $i == $countindex) {
-        $structure .= "<th data-type='number' align='center' style= 'font-size: smaller'>$ruscolnames[$i]</th>\r\n";
-    } else {
-        $structure .= "<th data-type='string' align='center' style= 'font-size: smaller'>$ruscolnames[$i]</th>\r\n";
-    }
+    $structure .= "<th class='hidden-md' onclick=\"showDiv('th$i')\" id=\"th$i\" data-priority='1'  align='center' style='font-size: smaller'>$ruscolnames[$i]</th>\r\n";
     $i++;
 }
 
-$structure .= "<th class='nosort' align='center' style= 'font-size: smaller'>Изменить статус</th>\r\n";
+$structure .= "<th id=\"th$i\" data-priority='1' class='nosort' align='center' style='font-size: smaller'>Изменить статус</th>\r\n";
 $structure .= "</tr>\r\n</thead>\r\n";
 
 
@@ -108,48 +105,47 @@ $sql = "SELECT * FROM orders WHERE status NOT LIKE 'Отменен' AND status N
 //echo $sql;
 $rows = mysqli_query($link, $sql);
 
-$structure .= "<tbody>\r\n<tr>\r\n";
+$structure .= "<tbody>\r\n<tr id='th$i'>\r\n";
 
 while ($row = mysqli_fetch_row($rows)) {
 
     $i = 0;
-    $structure .= "<tr>";
 
     while ($i < $total_cols) {
 
         if ($i == $urlindex) {
-            $structure .= "<td align='center'><a href=$row[$i]>URL</a></td>\r\n";
+            $structure .= "<td id='th$i' align='center'><a href=$row[$i]>URL</a></td>\r\n";
         } else if ($i == $statusindex) {
             if ($row[$i] == 'В обработке') {
-                $structure .= "<td align='center' style='color: #ffaa45; font-weight: bold'><span hidden='hidden'>1</span>$row[$i]</td>\r\n";
+                $structure .= "<td id='th$i' align='center' style='color: #ffaa45; font-weight: bold'><span hidden='hidden'>1</span>$row[$i]</td>\r\n";
             } elseif ($row[$i] == 'Подтвержден') {
-                $structure .= "<td align='center' style='color: #ffaa45; font-weight: bold'><span hidden='hidden'>2</span>$row[$i]</td>\r\n";
+                $structure .= "<td id='th$i' align='center' style='color: #ffaa45; font-weight: bold'><span hidden='hidden'>2</span>$row[$i]</td>\r\n";
             } elseif ($row[$i] == 'Исполняется') {
-                $structure .= "<td align='center' style='color: rgba(9,191,26,0.93); font-weight: bolder'><span hidden='hidden'>3</span>$row[$i]</td>\r\n";
+                $structure .= "<td id='th$i' align='center' style='color: rgba(9,191,26,0.93); font-weight: bolder'><span hidden='hidden'>3</span>$row[$i]</td>\r\n";
             } elseif ($row[$i] == 'Готов к выдаче') {
-                $structure .= "<td align='center' style='color: rgba(9,191,26,0.93); font-weight: bolder'><span hidden='hidden'>4</span>$row[$i]</td>\r\n";
+                $structure .= "<td id='th$i' align='center' style='color: rgba(9,191,26,0.93); font-weight: bolder'><span hidden='hidden'>4</span>$row[$i]</td>\r\n";
             } elseif ($row[$i] == 'Отменен') {
-                $structure .= "<td align='center' style='color: rgba(255,0,4,0.93); font-weight: bolder'><span hidden='hidden'>6</span>$row[$i]</td>\r\n";
+                $structure .= "<td id='th$i' align='center' style='color: rgba(255,0,4,0.93); font-weight: bolder'><span hidden='hidden'>6</span>$row[$i]</td>\r\n";
             } elseif ($row[$i] == 'Закрыт') {
-                $structure .= "<td align='center' style='color: rgba(255,0,4,0.93); font-weight: bolder'><span hidden='hidden'>5</span>$row[$i]</td>\r\n";
+                $structure .= "<td id='th$i' align='center' style='color: rgba(255,0,4,0.93); font-weight: bolder'><span hidden='hidden'>5</span>$row[$i]</td>\r\n";
             } else {
-                $structure .= "<td align='center'>$row[$i]</td>\r\n";
+                $structure .= "<td id='th$i' align='center' >$row[$i]</td>\r\n";
             }
             $dbstatus = $row[$i];
 
         } else if ($i == $costindex) {
-            $structure .= "<td align='center'>$row[$i]</td>\r\n";
+            $structure .= "<td id='th$i' align='center'>$row[$i]</td>\r\n";
 
         } else if ($i == $typoindex) {
 
             $typos = str_replace('<option value=' . $row[$i] . '>' . $row[$i] . '</option>', '<option value=' . $row[$i] . ' selected>' . $row[$i] . '</option>', $typographers);
-            $structure .= "<td align='center'>\r\n";
+            $structure .= "<td id='th$i' align='center' style='display: table-cell'>\r\n";
             $structure .= "<select class='select' id='typo' name='typo$orderid' style='align-content: center; padding: 0 0 0 5%; -webkit-appearance: none; -moz-appearance: none'>\r\n";
             $structure .= "$typos</select>\r\n";
             $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'></td>\r\n";
 
         } else {
-            $structure .= "<td align='center'>$row[$i]</td>\r\n";
+            $structure .= "<td id='th$i' align='center'>$row[$i]</td>\r\n";
         }
 
         if ($i == $dborderid) {
@@ -159,13 +155,12 @@ while ($row = mysqli_fetch_row($rows)) {
         $i++;
     }
 
-    $structure .= "<td align='center'>\r\n";
+    $structure .= "<td id='th$i' align='center'>\r\n";
     $structure .= "<select class='select' id='status' name='status$orderid' style='align-content: center'>\r\n";
     $structure .= "<option value='0'>Выберите</option>\r\n<option value='В обработке'>В обработке</option>\r\n<option value='Подтвержден'>Подтвержден</option>\r\n";
     $structure .= "<option value='Исполняется'>Исполняется</option>\r\n<option value='Готов к выдаче'>Готов к выдаче</option>\r\n<option value='Закрыт'>Закрыт</option>\r\n";
     $structure .= "<option value='Отменен'>Отменен</option></select>\r\n";
     $structure .= "<input type='text' name='idorder' value=$orderid hidden='hidden'>\r\n";
-    $structure .= "</tr>\r\n";
     $structure .= "</tr>\r\n";
 
 }

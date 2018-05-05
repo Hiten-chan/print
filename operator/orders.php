@@ -21,6 +21,9 @@ $message2 = '';
         <center>
             <div id="settings">
                 <h1>Работа с заказами</h1>
+
+                <script type="text/javascript" src="../rwd/rwd-table.js"></script>
+
                 <?php include("oper_show_table.php");
                 include("navigation.php");
 
@@ -55,6 +58,18 @@ $message2 = '';
                                     if ($result1 == '0') {
                                         printf("Errormessage: %s\n", mysqli_error($link));
                                         $message2 .= '<span class = "bad">Ошибка при работе с базой данных</span></br>';
+                                    } else {
+                                        //Отправка нотификации клиенту на почту
+                                        $query3 = mysqli_query($link, "SELECT * FROM users WHERE (user_id = '" . $user_id . "')");
+                                        $row = mysqli_fetch_assoc($query3);
+                                        $dbemail = $row['email'];
+                                        $dbfullname = $row['fullname'];
+
+                                        $headers = 'From: print8print@mail.ru';
+                                        $mess = "Уважаемый(ая) $dbfullname, статус Вашего заказа №$order_id изменен на " . $cstatus . "\r\n";
+                                        $mess .= 'Состояние Ваших заказов Вы можете посмотреть в личном кабинете на нашем сайте в своем ';
+                                        $mess .= "<a href=\"http://localhost/print/operator/orders.php\" target=\"_blank\">Личном кабинете.</a>";
+                                        $mail = mail("$dbemail", "Сброс пароля", $mess, $headers);
                                     }
 
                                 } else {
@@ -97,18 +112,20 @@ $message2 = '';
                     $nav = str_replace("<option value='$pagesfdis'", "<option value='$pagesfdis' selected", $nav);
                 } ?>
 
+
                 <table align="center" width="100%" border="0" style="align-content: center">
                     <tr>
                         <td width="15%" style="padding: 0% 0% 0% 1%"><?php echo $nav; ?>
 
                         </td>
                         <td width="15%" style="vertical-align: top; padding: 0% 0% 0% 1%">Страница <span
-                                    id="currentpage"><?php echo $_SESSION['session_opage']; ?></span> из
+                                    id="currentpage">
+                <?php echo $_SESSION['session_opage']; ?></span> из
                             <span id="pagelimit"><?php echo $PagesCount; ?></span></td>
                         <td width="33%"
                             align="center"
                             style="vertical-align: top; font-size: large"><?php echo Navigation($_SESSION['session_opage'], $PagesCount); ?>
-                            </td>
+                        </td>
                         <td width="33%" align="center" style="vertical-align: top; padding: 0% 0% 0% 9%"><input
                                     style='width: 80%; height: 70%' form="change_st"
                                     formaction='orders.php' class='button' name='change'
@@ -116,7 +133,12 @@ $message2 = '';
                     </tr>
                 </table>
 
-                <?php echo $structure; ?>
+<!--                <div class="table-responsive" data-pattern="priority-columns" data-responsive-table-toolbar="tech">-->
+                    <div class='hidden-md hidden-sm hidden-lg'>
+                    <?php echo $structure; ?>
+                    </div>
+<!--                </div>-->
+
             </div>
         </center>
     </div>
