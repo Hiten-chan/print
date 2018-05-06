@@ -12,13 +12,16 @@ include("menu_client.php");
 <?php
 
 $username = $_SESSION['session_username'];
-$message = ''; $message1 = ''; $message2 = '';
+$message = '';
+$message1 = '';
+$message2 = '';
 $ptypes = '';
 $sizes = '';
 $papers = '';
 $duedates = '';
 $end_price = '';
-$show_url = ''; $show_count = 0;
+$show_url = '';
+$show_count = 0;
 $price = 0;
 $deadline = '';
 
@@ -53,7 +56,6 @@ $row4 = mysqli_fetch_assoc($query4);
 do {
     $duedates .= '<option value=' . $row4['duedate'] . '>' . $row4['title'] . '</option>' . "\r\n";
 } while ($row4 = mysqli_fetch_array($query4));
-
 
 
 if (isset($_POST["save"])) {
@@ -236,42 +238,55 @@ if (isset($_POST["price"])) {
     <div class="container settings">
         <center>
             <div id="settings">
-                <h1>Создание нового заказа</h1>
+                <h1>Создание заказа</h1>
                 <?php echo $message; ?>
                 <?php echo $message1; ?>
                 <?php echo $message2; ?>
                 <form id="settingsform" method="post" name="settingsform">
 
-                    <p><label>Вид печатной продукции
-                            <select class="select" id="ptype" name="ptype">
-                                <option></option>
-                                <?php echo $ptypes ?>
+                    <table>
+                        <tr>
+                            <td width=50%>
+                                <p><label>Вид продукции
+                                        <select class="select" id="ptype" name="ptype">
+                                            <option></option>
+                                            <?php echo $ptypes ?>
 
-                            </select></label></p>
+                                        </select></label></p>
+                            </td>
+                            <td width=50%>
+                                <p><label>Формат печати
+                                        <select class="select" id="psize" name="psize">
+                                            <option></option>
+                                            <?php echo $sizes ?>
+                                        </select></label></p>
+                            </td>
+                        </tr>
 
-                    <p><label>Формат печати
-                            <select class="select" id="psize" name="psize">
-                                <option></option>
-                                <?php echo $sizes ?>
-                            </select></label></p>
-
-                    <p><label>Тип бумаги
-                            <select class="select" id="ppaper" name="ppaper">
-                                <option></option>
-                                <?php echo $papers ?>
-                            </select></label></p>
+                        <tr>
+                            <td width=50%>
+                                <p><label>Тип бумаги
+                                        <select class="select" id="ppaper" name="ppaper">
+                                            <option></option>
+                                            <?php echo $papers ?>
+                                        </select></label></p>
+                            </td>
+                            <td width=50%>
+                                <p><label>Cрок исполнения
+                                        <select class="select" id="duedate" name="duedate">
+                                            <option></option>
+                                            <?php echo $duedates ?>
+                                        </select></label></p>
+                            </td>
+                        </tr>
+                    </table>
 
                     <p><label>Количество копий
                             <input class="select" id="pcount" name="pcount" type="number"
                                    value='<?php echo $show_count; ?>' required/ ></label></p>
 
-                    <p><label>Ориентировочный срок исполнения заказа
-                            <select class="select" id="duedate" name="duedate">
-                                <option></option>
-                                <?php echo $duedates ?>
-                            </select></label></p>
 
-                    <p><label>Ссылка на изображение<br>
+                    <p><label>Ссылка на изображение (URL)<br>
                             <input class="input" id="imageurl" name="imageurl" type="url"
                                    value="<?php echo $show_url; ?>"></label></p>
 

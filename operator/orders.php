@@ -69,7 +69,7 @@ $message2 = '';
                                         $mess = "Уважаемый(ая) $dbfullname, статус Вашего заказа №$order_id изменен на " . $cstatus . "\r\n";
                                         $mess .= 'Состояние Ваших заказов Вы можете посмотреть в личном кабинете на нашем сайте в своем ';
                                         $mess .= "<a href=\"http://localhost/print/operator/orders.php\" target=\"_blank\">Личном кабинете.</a>";
-                                        $mail = mail("$dbemail", "Сброс пароля", $mess, $headers);
+                                       // $mail = mail("$dbemail", "Сброс пароля", $mess, $headers);
                                     }
 
                                 } else {
